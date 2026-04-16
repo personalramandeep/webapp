@@ -11,9 +11,9 @@ import DrillVideoModal from '../analysis/DrillVideoModal';
 
 // ── Mock review data ──
 const REVIEW_COACH = {
-  name: 'Arjun Mehta',
-  initials: 'AM',
-  specialization: 'Footwork & Smash',
+  name: 'Coach Priya',
+  initials: 'CP',
+  specialization: 'Defence & Footwork',
   rating: 4.8,
 };
 
@@ -87,6 +87,9 @@ const PerformanceReview = ({ onLogout }) => {
       videoRef.current.currentTime = seconds;
       videoRef.current.play().catch(() => {});
       setIsPlaying(true);
+      // Scroll video player into view
+      const playerEl = document.querySelector('[data-testid="review-video-player"]');
+      if (playerEl) playerEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
   };
 
@@ -123,7 +126,7 @@ const PerformanceReview = ({ onLogout }) => {
       <Sidebar isCollapsed={isSidebarCollapsed} setIsCollapsed={setIsSidebarCollapsed} onLogout={onLogout} />
 
       <div className="transition-all duration-300" style={{ marginLeft: isSidebarCollapsed ? 72 : 280 }}>
-        <main className="p-4 md:p-6 pt-6 max-w-[1400px] mx-auto">
+        <main className="p-4 md:p-6 pt-20 max-w-[1400px] mx-auto">
           {/* Breadcrumb */}
           <nav className="flex items-center gap-1.5 text-xs text-white/50 mb-4" data-testid="review-breadcrumb">
             <button onClick={() => navigate('/dashboard')} className="hover:text-white transition-colors">My Sessions</button>
@@ -319,24 +322,35 @@ const PerformanceReview = ({ onLogout }) => {
                       : drill.tags.some((t) => ['basics', 'beginner'].includes(t)) ? 'Beginner' : 'Intermediate';
                     const diffColor = difficulty === 'Beginner' ? 'bg-green-500/20 text-green-400' : difficulty === 'Advanced' ? 'bg-red-500/20 text-red-400' : 'bg-blue-500/20 text-blue-400';
                     const mainTag = drill.tags[0] || 'Training';
-                    const initial = drill.section.charAt(0).toUpperCase();
+                    const ytId = drill.video_url.match(/\/embed\/([^?]+)/)?.[1] || '';
+                    const thumbnail = ytId ? `https://img.youtube.com/vi/${ytId}/mqdefault.jpg` : '';
                     return (
-                      <div key={drill.id} className="bg-[#2a2a2a] border border-white/5 rounded-lg overflow-hidden" data-testid={`suggested-drill-${drill.id}`}>
-                        <div className="relative p-3 pb-2">
-                          <span className={`absolute top-2 left-2 text-[9px] px-1.5 py-0.5 rounded font-medium ${diffColor}`}>{difficulty}</span>
-                          <div className="flex items-center justify-center h-14 text-3xl font-bold text-white/10">{initial}</div>
-                          <p className="text-white/30 text-[9px] mt-1">Recommended for: <span className="text-white/60">{drill.section.split(' ')[0]}</span></p>
-                          <p className="text-white text-xs font-semibold mt-0.5 line-clamp-2 leading-snug">{drill.title.length > 30 ? drill.title.substring(0, 30) + '...' : drill.title}</p>
+                      <div
+                        key={drill.id}
+                        className="bg-[#2a2a2a] border border-white/5 rounded-lg overflow-hidden cursor-pointer hover:border-white/15 transition-colors"
+                        onClick={() => setSelectedDrill(drill)}
+                        data-testid={`suggested-drill-${drill.id}`}
+                      >
+                        <div className="relative">
+                          <img src={thumbnail} alt={drill.title} className="w-full h-20 object-cover" />
+                          <span className={`absolute top-1.5 left-1.5 text-[8px] px-1.5 py-0.5 rounded font-medium ${diffColor}`}>{difficulty}</span>
+                          <div className="absolute top-1.5 right-1.5 bg-red-600 text-white text-[6px] font-bold px-1 py-px rounded flex items-center gap-0.5">
+                            <svg className="w-1.5 h-1.5" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z" /></svg>
+                            YT
+                          </div>
                         </div>
-                        <div className="px-3 pb-3 flex items-center gap-1.5">
-                          <span className="text-[8px] px-1.5 py-0.5 rounded bg-white/5 border border-white/10 text-white/40">{mainTag}</span>
-                          <button
-                            onClick={() => setSelectedDrill(drill)}
-                            className="text-[8px] px-1.5 py-0.5 rounded bg-kreeda-orange/15 border border-kreeda-orange/20 text-kreeda-orange font-medium hover:bg-kreeda-orange/25 transition-colors"
-                            data-testid={`start-drill-${drill.id}`}
-                          >
-                            + Start Drill
-                          </button>
+                        <div className="p-2.5">
+                          <p className="text-white/30 text-[9px]">Recommended for: <span className="text-white/60">{drill.section.split('&')[0].trim()}</span></p>
+                          <p className="text-white text-[11px] font-semibold mt-0.5 line-clamp-2 leading-snug">{drill.title}</p>
+                          <div className="flex items-center gap-1.5 mt-2">
+                            <span className="text-[8px] px-1.5 py-0.5 rounded bg-white/5 border border-white/10 text-white/40">{mainTag}</span>
+                            <span
+                              className="text-[8px] px-1.5 py-0.5 rounded bg-kreeda-orange/15 border border-kreeda-orange/20 text-kreeda-orange font-medium"
+                              data-testid={`start-drill-${drill.id}`}
+                            >
+                              + Start Drill
+                            </span>
+                          </div>
                         </div>
                       </div>
                     );
