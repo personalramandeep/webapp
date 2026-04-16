@@ -49,11 +49,22 @@ const VideoAnalysisPage = ({ onLogout }) => {
   const analysis = getAnalysisFor(videoId || 'v-default', aiScore);
 
   const analysisForChat = {
+    playerName: identity.name,
     title: videoTitle,
     score: aiScore,
     grade: analysis.performanceGrade,
-    strongestSkill: Object.entries(analysis.skills).sort((a, b) => b[1] - a[1])[0][0],
-    weakestSkill: Object.entries(analysis.skills).sort((a, b) => a[1] - b[1])[0][0],
+    skills: analysis.skills,
+    analysis: {
+      calories: 630,
+      vsAverage: -6,
+      distance: '8.51m',
+      steps: 18,
+      duration: '0 min',
+      smashCount: 2,
+      defenseCount: 4,
+      serveCount: 0,
+      totalShots: 6,
+    },
   };
 
   const analysisForShare = {
