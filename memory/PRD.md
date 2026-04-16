@@ -24,9 +24,11 @@ Kreeda analyzes badminton videos to deliver data-driven coaching insights. Curre
 ## Smart Matchmaking (Completed Feb 2026)
 - **Location**: Video Analysis Page, between Court Coverage and Key Moments
 - **Components**: `SmartMatchmaking.js`, `CoachMatchCard.js`, `PlayerMatchCard.js`
-- **Features**: Toggle tabs (Find a Coach / Find a Player), 2.5s simulated loading with rotating text, horizontal scrollable cards, premium gating (3 unlocked + 3 locked per category), booking/challenge toast notifications
+- **Features**: Toggle tabs (Find a Coach / Find a Player), idle state with "Start Matching" CTA button, 2.5s simulated loading with rotating text, horizontal scrollable cards, premium gating (3 unlocked + 3 locked per category), booking/challenge toast notifications
+- **Flow**: Idle (button) → Loading (spinner + rotating text) → Results (scrollable cards). Tab switch resets to idle.
+- **Avatars**: Real badminton player photos stored in `/assets/match-player-{1-4}.png`
 - **Data**: Mock arrays `MATCHMAKING_COACHES` and `MATCHMAKING_PLAYERS` in `fixtures.js`
-- **Testing**: 100% pass rate (24/24 test IDs verified)
+- **Testing**: 100% pass rate (iterations 1 & 2)
 
 ## Backlog
 - **P1**: Cleanup unused Auth components (`AuthCallback.js`) and backend auth endpoints
