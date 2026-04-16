@@ -20,6 +20,21 @@ const SkillRadarChart = ({ skills, size = 280, showTitle = true }) => {
     return name.replace(/([A-Z])/g, ' $1').trim();
   };
 
+  const CustomTick = ({ payload, x, y, textAnchor }) => {
+    const item = chartData.find((d) => d.skill === payload.value);
+    const score = item ? item.value : '';
+    return (
+      <g>
+        <text x={x} y={y} textAnchor={textAnchor} fill="#9CA3AF" fontSize={12}>
+          {payload.value}
+        </text>
+        <text x={x} y={y + 16} textAnchor={textAnchor} fill="#F45831" fontSize={13} fontWeight="bold">
+          {score}
+        </text>
+      </g>
+    );
+  };
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -39,7 +54,7 @@ const SkillRadarChart = ({ skills, size = 280, showTitle = true }) => {
             <PolarGrid stroke="rgba(255, 255, 255, 0.1)" />
             <PolarAngleAxis 
               dataKey="skill" 
-              tick={{ fill: '#9CA3AF', fontSize: 12 }}
+              tick={<CustomTick />}
             />
             <PolarRadiusAxis 
               angle={90} 
