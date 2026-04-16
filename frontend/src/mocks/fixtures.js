@@ -45,17 +45,18 @@ export const MOCK_LEADERBOARD = [
 ];
 
 // 3 curated high-quality badminton thumbnails — reused across the 4 seed videos
-const THUMB_SMASH = 'https://images.unsplash.com/photo-1626224583764-f87db24ac4ea?w=800&h=1000&fit=crop&q=80';
-const THUMB_RALLY = 'https://images.unsplash.com/photo-1599586120429-48719d1a20f6?w=800&h=1000&fit=crop&q=80';
-const THUMB_NET = 'https://images.unsplash.com/photo-1613918431703-aa50889e3be3?w=800&h=1000&fit=crop&q=80';
+const THUMB_SMASH = '/assets/thumbnail1.webp';
+const THUMB_RALLY = '/assets/thumbnail2.webp';
+const THUMB_NET = '/assets/thumbnail3.webp';
+const THUMB_MATCH = '/assets/thumbnail4.webp';
 
-export const VIDEO_THUMBNAILS = { smash: THUMB_SMASH, rally: THUMB_RALLY, net: THUMB_NET };
+export const VIDEO_THUMBNAILS = { smash: THUMB_SMASH, rally: THUMB_RALLY, net: THUMB_NET, match: THUMB_MATCH };
 
 export const MOCK_VIDEOS = [
   { id: 'v-seed-1', title: 'Singles Match - Court 2', thumbnail: THUMB_SMASH, videoUrl: 'https://storage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4', uploadedAt: new Date(Date.now() - 1 * 86400000).toISOString(), duration: 42, aiScore: 72, grade: 'B', status: 'analyzed' },
   { id: 'v-seed-2', title: 'Rally Practice', thumbnail: THUMB_RALLY, videoUrl: 'https://storage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4', uploadedAt: new Date(Date.now() - 2 * 86400000).toISOString(), duration: 38, aiScore: 68, grade: 'B', status: 'analyzed' },
   { id: 'v-seed-3', title: 'Net Drills', thumbnail: THUMB_NET, videoUrl: 'https://storage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4', uploadedAt: new Date(Date.now() - 3 * 86400000).toISOString(), duration: 44, aiScore: 75, grade: 'B+', status: 'analyzed' },
-  { id: 'v-seed-4', title: 'Match Highlights', thumbnail: THUMB_SMASH, videoUrl: 'https://storage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4', uploadedAt: new Date(Date.now() - 4 * 86400000).toISOString(), duration: 40, aiScore: 70, grade: 'B', status: 'analyzed' },
+  { id: 'v-seed-4', title: 'Match Highlights', thumbnail: THUMB_MATCH, videoUrl: 'https://storage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4', uploadedAt: new Date(Date.now() - 4 * 86400000).toISOString(), duration: 40, aiScore: 70, grade: 'B', status: 'analyzed' },
 ];
 
 export const MOCK_COACHES = [
