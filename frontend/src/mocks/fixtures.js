@@ -32,7 +32,7 @@ export const MOCK_DASHBOARD_STATS = {
 
 // 10 mock leaderboard entries — fuels the scrolling ticker
 export const MOCK_LEADERBOARD = [
-  { rank: 1, name: 'Sumit Singh', city: 'Mumbai', score: 2180, change: +15, picture: 'https://api.dicebear.com/7.x/avataaars/svg?seed=sumit' },
+  { rank: 1, name: 'Sumit Singh', city: 'Mumbai', score: 2180, change: +15, picture: '/assets/sumit-avatar.png' },
   { rank: 2, name: 'Ramandeep Singh', city: 'Delhi', score: 2045, change: +8, picture: MOCK_PLAYER.picture, isMe: true },
   { rank: 3, name: 'Arjun Menon', city: 'Bangalore', score: 1987, change: -3, picture: 'https://api.dicebear.com/7.x/avataaars/svg?seed=arjun' },
   { rank: 4, name: 'Priya Nair', city: 'Chennai', score: 1912, change: +22, picture: 'https://api.dicebear.com/7.x/avataaars/svg?seed=priya' },
@@ -62,8 +62,8 @@ export const MOCK_VIDEOS = [
 export const MOCK_COACHES = [
   {
     id: 'coach-prab',
-    name: 'Prabhsharan Kour',
-    handle: 'prabsharanko2391',
+    name: 'Coach Priya',
+    handle: 'coachpriya',
     specialization: 'Defence & Footwork',
     rating: 3.0,
     totalRatings: 1,
@@ -71,7 +71,7 @@ export const MOCK_COACHES = [
     totalVideos: 0,
     sessionsAnalyzed: 0,
     avgScore: 0,
-    picture: 'https://api.dicebear.com/7.x/avataaars/svg?seed=prab',
+    picture: '/assets/coach-priya-avatar.png',
     location: 'Bengaluru',
     experienceYears: 3,
     hourlyRate: 149,
@@ -91,7 +91,7 @@ export const MOCK_COACHES = [
     totalVideos: 0,
     sessionsAnalyzed: 0,
     avgScore: 0,
-    picture: 'https://api.dicebear.com/7.x/avataaars/svg?seed=sumit',
+    picture: '/assets/sumit-avatar.png',
     location: 'Bangalore',
     experienceYears: 2,
     hourlyRate: 99,
@@ -159,7 +159,7 @@ export const MOCK_COACH_REVIEWS = {
       id: 'r1',
       reviewerName: 'Sumit Singh',
       reviewerHandle: 'itssumitsin0190',
-      reviewerPicture: 'https://api.dicebear.com/7.x/avataaars/svg?seed=sumit',
+      reviewerPicture: '/assets/sumit-avatar.png',
       rating: 3,
       tags: ['Technique', 'Fitness'],
       body: 'nice',
