@@ -7,10 +7,12 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        'kreeda-charcoal': '#2D2926',
-        'kreeda-orange': '#F45831',
-        'kreeda-green': '#1B3B36',
-      },
+  'kreeda-charcoal': '#2D2926',
+  'kreeda-gray': '#2D2926',
+  'kreeda-orange': '#F45831',
+  'kreeda-green': '#1B3B36',
+},
+
       animation: {
         'fade-in-out': 'fadeInOut 3s ease-in-out infinite',
         'marquee': 'marquee 60s linear infinite',

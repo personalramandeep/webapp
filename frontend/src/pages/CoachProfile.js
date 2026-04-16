@@ -1,15 +1,8 @@
-// PASTE TO: frontend/src/pages/CoachProfile.js (NEW FILE)
-// Port of kreeda-webapp/src/pages/CoachProfile.jsx (public-view branch only — lines 572–812).
-// Dropped: isOwnProfile edit-form branch, Sidebar + DashboardHeader wrappers, Become-a-Coach
-// banner, API hooks (useCoachProfile, useFavorites), bio Read-more toggle (bios are short),
-// loading skeletons. Data comes from getCoachById + getCoachReviewsFor in reviewStore.
-// Composes: CoachStatsCard + CoachingReviewsCard.
-
 import React, { useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-// import CoachStatsCard from '../../components/coach/CoachStatsCard';
-// import CoachingReviewsCard from '../../components/coach/CoachingReviewsCard';
+import CoachStatsCard from '../components/coach/CoachStatsCard';
+import CoachingReviewsCard from '../components/coach/CoachingReviewsCard';
 import { getCoachById, getCoachReviewsFor } from '../mocks/reviewStore';
 
 const ICON = {
@@ -217,8 +210,7 @@ const CoachProfile = () => {
               transition={{ duration: 0.4, delay: 0.05 }}
               className="lg:col-span-1"
             >
-              {/* <CoachStatsCard stats={stats} /> */}
-              <div className="text-gray-400 text-center py-8">Coach stats coming soon</div>
+              <CoachStatsCard stats={stats} />
             </motion.div>
 
             {/* RIGHT 2/3: About */}
@@ -307,8 +299,7 @@ const CoachProfile = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4, delay: 0.2 }}
           >
-            {/* <CoachingReviewsCard reviews={reviews} /> */}
-            <div className="text-gray-400 text-center py-8">Coach reviews coming soon</div>
+            <CoachingReviewsCard reviews={reviews} />
           </motion.div>
         </div>
       </div>
