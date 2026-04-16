@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import Sidebar from './Sidebar';
-import DashboardControls from './DashboardControls';
 import LeaderboardStrip from './LeaderboardStrip';
 import QuickStats from './QuickStats';
 import EmptyState from './EmptyState';
@@ -32,7 +31,11 @@ const PlayerDashboard = ({ user: userProp, onLogout }) => {
 
   return (
     <div className="min-h-screen bg-[#0F0F0F]">
-      <Sidebar isCollapsed={isSidebarCollapsed} setIsCollapsed={setIsSidebarCollapsed} />
+      <Sidebar 
+        isCollapsed={isSidebarCollapsed} 
+        setIsCollapsed={setIsSidebarCollapsed}
+        onLogout={onLogout}
+      />
 
       <div
         className="transition-all duration-300 pt-16"
@@ -40,8 +43,6 @@ const PlayerDashboard = ({ user: userProp, onLogout }) => {
       >
         <main className="p-6">
           <div className="max-w-7xl mx-auto">
-            <DashboardControls onLogout={onLogout} />
-            
             <LeaderboardStrip />
 
             <div className="mb-6 md:mb-8">
