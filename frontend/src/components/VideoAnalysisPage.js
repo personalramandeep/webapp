@@ -13,6 +13,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import Sidebar from './dashboard/Sidebar';
 import VideoPlayerSection from './analysis/VideoPlayerSection';
 import SkillBreakdownCard from './analysis/SkillBreakdownCard';
 import BadmintonCourtHeatmap from './analysis/BadmintonCourtHeatmap';
@@ -27,13 +28,14 @@ import { useIdentity } from '../contexts/IdentityContext';
 import { getVideo, getCoachFeedbackFor, useReviewStore } from '../mocks/reviewStore';
 import { getAnalysisFor } from '../mocks/mockAnalysis';
 
-const VideoAnalysisPage = () => {
+const VideoAnalysisPage = ({ onLogout }) => {
   const { videoId } = useParams();
   const navigate = useNavigate();
   const { identity } = useIdentity();
   const [store] = useReviewStore();
   const [chatOpen, setChatOpen] = useState(false);
   const [shareOpen, setShareOpen] = useState(false);
+  const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(true);
 
   const storedVideo = getVideo(videoId);
   const coachFeedback = getCoachFeedbackFor(videoId);
@@ -68,9 +70,19 @@ const VideoAnalysisPage = () => {
   }, []);
 
   return (
-    <div className="min-h-screen bg-[#0F0F0F] text-white">
-      <div className="sticky top-0 z-40 bg-[#1A1A1A] border-b border-white/5 px-4 md:px-6 py-3">
-        <div className="max-w-[1600px] mx-auto">
+    <div className="min-h-screen bg-[#0F0F0F]">
+      <Sidebar 
+        isCollapsed={isSidebarCollapsed} 
+        setIsCollapsed={setIsSidebarCollapsed}
+        onLogout={onLogout}
+      />
+
+      <div
+        className="transition-all duration-300 pt-16"
+        style={{ marginLeft: isSidebarCollapsed ? 72 : 280 }}
+      >
+        <div className="sticky top-16 z-40 bg-[#1A1A1A] border-b border-white/5 px-4 md:px-6 py-3">
+          <div className="max-w-[1600px] mx-auto">
           <div className="flex items-center justify-between gap-4 mb-2">
             <nav className="flex items-center gap-1.5 text-xs sm:text-sm min-w-0 overflow-hidden">
               <button
@@ -161,6 +173,7 @@ const VideoAnalysisPage = () => {
             </div>
           </div>
         </div>
+      </div>
       </div>
 
       <AICoachChatPanel

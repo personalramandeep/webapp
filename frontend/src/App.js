@@ -20,12 +20,14 @@ function RoleBasedDashboard() {
 }
 
 function App() {
+  const handleLogout = () => { window.location.href = '/'; };
+  
   return (
     <IdentityProvider>
       <Routes>
         <Route path="/" element={<LoginPage />} />
         <Route path="/dashboard" element={<RoleBasedDashboard />} />
-        <Route path="/analysis/:videoId" element={<VideoAnalysis />} />
+        <Route path="/analysis/:videoId" element={<VideoAnalysis onLogout={handleLogout} />} />
         <Route path="/coach/dashboard" element={<RoleBasedDashboard />} />
         <Route path="/coach/reviews/:requestId" element={<CoachReviewsWorkroomRoute />} />
         <Route path="/review/:videoId" element={<PerformanceReviewRoute />} />
