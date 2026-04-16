@@ -30,6 +30,18 @@ Kreeda analyzes badminton videos to deliver data-driven coaching insights. Curre
 - **Data**: Mock arrays `MATCHMAKING_COACHES` and `MATCHMAKING_PLAYERS` in `fixtures.js`
 - **Testing**: 100% pass rate (iterations 1 & 2)
 
+## Recommended Drills - YouTube Integration (Completed Feb 2026)
+- **Location**: Video Analysis Page, right column (replaced old static drills)
+- **Components**: Rewritten `RecommendedDrillsCard.js`, new `DrillVideoModal.js`
+- **Data**: 50 YouTube drill videos in `src/mocks/youtubeDrills.js` across 10 sections
+- **Features**: 
+  - "Recommended" / "AI Insights" toggle tabs
+  - Shows 5 drills based on player's 2 weakest skills (skill→tag mapping)
+  - YT thumbnails, red YT badge, title, description, duration, difficulty, section
+  - Click drill → popup modal with embedded YT video (autoplay), title, description, tags
+  - Close via X button or overlay click
+- **Testing**: 100% pass rate (iteration 3)
+
 ## Backlog
 - **P1**: Cleanup unused Auth components (`AuthCallback.js`) and backend auth endpoints
 - **P2**: Implement real backend endpoints and MongoDB storage
