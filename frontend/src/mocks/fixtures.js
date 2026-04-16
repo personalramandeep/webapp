@@ -4,18 +4,18 @@ export const MOCK_PLAYER = {
   username: 'ramansingh',
   email: 'info@mindfieldsglobal.com',
   city: 'Delhi',
-  picture: 'https://api.dicebear.com/7.x/avataaars/svg?seed=ramansingh',
+  picture: '/assets/raman-avatar.png',
   role: 'player',
 };
 
 export const MOCK_COACH_IDENTITY = {
   id: 'c1',
-  name: 'Prabhsharan Kour',
-  username: 'prabsharank',
-  email: 'prabsharan@kreeda.tech',
-  picture: 'https://api.dicebear.com/7.x/avataaars/svg?seed=prabsharan',
+  name: 'Coach Priya',
+  username: 'coachpriya',
+  email: 'priya@kreeda.tech',
+  picture: '/assets/coach-priya-avatar.png',
   role: 'coach',
-  rating: 3.0,
+  rating: 4.8,
   specialization: 'Defence & Footwork',
   totalSessions: 0,
   pendingReviews: 0,
@@ -60,12 +60,12 @@ export const MOCK_VIDEOS = [
 ];
 
 export const MOCK_COACHES = [
-  { id: 'coach-prab', name: 'Prabhsharan Kour', specialization: 'Defence & Footwork', rating: 3.0, picture: 'https://api.dicebear.com/7.x/avataaars/svg?seed=prabsharan' },
+  { id: 'coach-priya', name: 'Coach Priya', specialization: 'Defence & Footwork', rating: 4.8, picture: '/assets/coach-priya-avatar.png' },
   { id: 'coach-sumit', name: 'Sumit Singh', specialization: 'Footwork', rating: 3.5, picture: 'https://api.dicebear.com/7.x/avataaars/svg?seed=sumit' },
 ];
 
 export const SEED_COACH_REQUESTS = [
-  { id: 'req-seed-1', videoId: 'v-seed-1', coachId: 'coach-prab', status: 'in_review', note: '', createdAt: new Date(Date.now() - 86400000).toISOString() },
+  { id: 'req-seed-1', videoId: 'v-seed-1', coachId: 'coach-priya', status: 'in_review', note: '', createdAt: new Date(Date.now() - 86400000).toISOString() },
   { id: 'req-seed-2', videoId: 'v-seed-1', coachId: 'coach-sumit', status: 'in_review', note: '', createdAt: new Date(Date.now() - 86400000).toISOString() },
 ];
 
@@ -107,7 +107,7 @@ export const SEED_SUGGESTED_DRILLS = {
 
 // Bell-icon notifications shown on the dashboard
 export const MOCK_NOTIFICATIONS = [
-  { id: 'n1', type: 'coach_review', title: 'Prabhsharan Kour finished your review', body: 'Your "Singles Match - Court 2" has 4 new coach comments and a drill plan.', timeAgo: '2h ago', unread: true, icon: 'review' },
+  { id: 'n1', type: 'coach_review', title: 'Coach Priya finished your review', body: 'Your "Singles Match - Court 2" has 4 new coach comments and a drill plan.', timeAgo: '2h ago', unread: true, icon: 'review' },
   { id: 'n2', type: 'ai_insight', title: 'KreedAI spotted a trend', body: 'Your footwork improved 12% across your last 3 matches. Keep it up!', timeAgo: '5h ago', unread: true, icon: 'sparkles' },
   { id: 'n3', type: 'leaderboard', title: 'You moved up to #2 in Delhi', body: 'You passed Arjun Menon. Sumit Singh is 135 ELO ahead.', timeAgo: '1d ago', unread: true, icon: 'trophy' },
   { id: 'n4', type: 'challenge', title: '7-day streak unlocked', body: 'Train again today to keep your streak alive.', timeAgo: '1d ago', unread: false, icon: 'fire' },
