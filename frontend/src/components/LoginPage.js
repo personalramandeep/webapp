@@ -1,48 +1,8 @@
-import React, { useEffect, useRef } from 'react';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const LoginPage = () => {
   const navigate = useNavigate();
-  const videoRef = useRef(null);
-  
-  useEffect(() => {
-    const video = videoRef.current;
-    if (!video) return;
-
-    let isReversing = false;
-    let animationFrame = null;
-
-    const reverseVideo = () => {
-      if (!isReversing) return;
-      
-      const step = 0.05; // Adjust for smoothness
-      video.currentTime = Math.max(0, video.currentTime - step);
-      
-      if (video.currentTime <= 0) {
-        // Reached beginning, play forward again
-        isReversing = false;
-        video.play();
-      } else {
-        animationFrame = requestAnimationFrame(reverseVideo);
-      }
-    };
-
-    const handleVideoEnd = () => {
-      // Video finished playing forward, now play in reverse
-      isReversing = true;
-      video.pause();
-      reverseVideo();
-    };
-
-    video.addEventListener('ended', handleVideoEnd);
-
-    return () => {
-      video.removeEventListener('ended', handleVideoEnd);
-      if (animationFrame) {
-        cancelAnimationFrame(animationFrame);
-      }
-    };
-  }, []);
   
   const handleEnterArena = () => {
     navigate('/dashboard');
@@ -141,8 +101,8 @@ const LoginPage = () => {
       {/* Right Side - Video Background */}
       <div className="hidden lg:block lg:w-1/2 relative overflow-hidden">
         <video
-          ref={videoRef}
           autoPlay
+          loop
           muted
           playsInline
           className="absolute inset-0 w-full h-full object-cover"
