@@ -60,9 +60,48 @@ export const MOCK_VIDEOS = [
 ];
 
 export const MOCK_COACHES = [
-  { id: 'coach-priya', name: 'Coach Priya', specialization: 'Defence & Footwork', rating: 4.8, picture: '/assets/coach-priya-avatar.png' },
-  { id: 'coach-sumit', name: 'Sumit Singh', specialization: 'Footwork', rating: 3.5, picture: 'https://api.dicebear.com/7.x/avataaars/svg?seed=sumit' },
+  {
+    id: 'coach-prab',
+    name: 'Prabhsharan Kour',
+    handle: 'prabsharanko2391',
+    specialization: 'Defence & Footwork',
+    rating: 3.0,
+    totalRatings: 1,
+    totalSessions: 0,
+    totalVideos: 0,
+    sessionsAnalyzed: 0,
+    avgScore: 0,
+    picture: 'https://api.dicebear.com/7.x/avataaars/svg?seed=prab',
+    location: 'Bengaluru',
+    experienceYears: 3,
+    hourlyRate: 149,
+    tier: 'pro',
+    isVerified: true,
+    certifications: [],
+    bio: 'Here to help you excel.',
+  },
+  {
+    id: 'coach-sumit',
+    name: 'Sumit Singh',
+    handle: 'itssumitsin0190',
+    specialization: 'Footwork',
+    rating: 3.5,
+    totalRatings: 0,
+    totalSessions: 0,
+    totalVideos: 0,
+    sessionsAnalyzed: 0,
+    avgScore: 0,
+    picture: 'https://api.dicebear.com/7.x/avataaars/svg?seed=sumit',
+    location: 'Bangalore',
+    experienceYears: 2,
+    hourlyRate: 99,
+    tier: 'standard',
+    isVerified: false,
+    certifications: [],
+    bio: 'Grinding the footwork basics with players across Bangalore.',
+  },
 ];
+
 
 export const SEED_COACH_REQUESTS = [
   { id: 'req-seed-1', videoId: 'v-seed-1', coachId: 'coach-priya', status: 'in_review', note: '', createdAt: new Date(Date.now() - 86400000).toISOString() },
@@ -113,3 +152,19 @@ export const MOCK_NOTIFICATIONS = [
   { id: 'n4', type: 'challenge', title: '7-day streak unlocked', body: 'Train again today to keep your streak alive.', timeAgo: '1d ago', unread: false, icon: 'fire' },
   { id: 'n5', type: 'friend', title: 'Sumit Singh shared an analysis', body: '"That jump smash was filthy 🔥 — check my latest match."', timeAgo: '2d ago', unread: false, icon: 'user' },
 ];
+
+export const MOCK_COACH_REVIEWS = {
+  'coach-prab': [
+    {
+      id: 'r1',
+      reviewerName: 'Sumit Singh',
+      reviewerHandle: 'itssumitsin0190',
+      reviewerPicture: 'https://api.dicebear.com/7.x/avataaars/svg?seed=sumit',
+      rating: 3,
+      tags: ['Technique', 'Fitness'],
+      body: 'nice',
+      createdAt: new Date(Date.now() - 2 * 86400000).toISOString(),
+    },
+  ],
+  'coach-sumit': [],
+};

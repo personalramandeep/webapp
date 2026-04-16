@@ -5,6 +5,7 @@ import httpx
 import os
 from datetime import datetime, timezone, timedelta
 from dotenv import load_dotenv
+from routes.ai_coach import router as ai_coach_router
 
 load_dotenv()
 
@@ -22,6 +23,9 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+# Include AI Coach router
+app.include_router(ai_coach_router)
 
 # In-memory session storage (since no database required)
 sessions = {}

@@ -6,6 +6,8 @@ import PlayerDashboard from './components/dashboard/PlayerDashboard';
 import VideoAnalysis from './components/VideoAnalysis';
 import CoachDashboard from './components/coach/CoachDashboard';
 import CoachReviewsWorkroom from './components/coach/CoachReviewsWorkroom';
+import CoachMarketplace from './components/coach/CoachMarketplace';
+import CoachProfile from './pages/CoachProfile';
 import PerformanceReview from './components/review/PerformanceReview';
 import { IdentityProvider, useIdentity } from './contexts/IdentityContext';
 import './App.css';
@@ -24,16 +26,19 @@ function App() {
   
   return (
     <IdentityProvider>
-      <Routes>
-        <Route path="/" element={<LoginPage />} />
-        <Route path="/dashboard" element={<RoleBasedDashboard />} />
-        <Route path="/analysis/:videoId" element={<VideoAnalysis onLogout={handleLogout} />} />
-        <Route path="/coach/dashboard" element={<RoleBasedDashboard />} />
-        <Route path="/coach/reviews/:requestId" element={<CoachReviewsWorkroomRoute />} />
-        <Route path="/review/:videoId" element={<PerformanceReviewRoute />} />
-        <Route path="/demo" element={<RoleBasedDashboard />} />
-      </Routes>
-    </IdentityProvider>
+  <Routes>
+    <Route path="/" element={<LoginPage />} />
+    <Route path="/dashboard" element={<RoleBasedDashboard />} />
+    <Route path="/analysis/:videoId" element={<VideoAnalysis onLogout={handleLogout} />} />
+    <Route path="/marketplace" element={<CoachMarketplace />} />
+    <Route path="/coach/dashboard" element={<RoleBasedDashboard />} />
+    <Route path="/coach/reviews/:requestId" element={<CoachReviewsWorkroomRoute />} />
+    <Route path="/coach/:coachId" element={<CoachProfile />} />
+    <Route path="/review/:videoId" element={<PerformanceReviewRoute />} />
+    <Route path="/demo" element={<RoleBasedDashboard />} />
+  </Routes>
+</IdentityProvider>
+
   );
 }
 

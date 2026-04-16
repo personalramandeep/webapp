@@ -3,10 +3,13 @@ import {
   MOCK_PLAYER,
   MOCK_COACH_IDENTITY,
   MOCK_VIDEOS,
+  MOCK_COACHES,
+  MOCK_COACH_REVIEWS,
   SEED_COACH_REQUESTS,
   SEED_COACH_FEEDBACK,
   SEED_SUGGESTED_DRILLS,
 } from './fixtures';
+
 
 const KEY = 'kreeda_demo_v1';
 const EVT = 'kreeda-demo-update';
@@ -131,4 +134,12 @@ export function addUploadedVideo(video) {
 
 export function getVideo(videoId) {
   return reviewStore.get().uploadedVideos.find((v) => v.id === videoId);
+}
+
+export function getCoachById(coachId) {
+  return MOCK_COACHES.find((c) => c.id === coachId);
+}
+
+export function getCoachReviewsFor(coachId) {
+  return MOCK_COACH_REVIEWS[coachId] || [];
 }
