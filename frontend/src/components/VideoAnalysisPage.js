@@ -182,7 +182,7 @@ const VideoAnalysisPage = ({ onLogout }) => {
               <OverallScoreCard analysis={analysis} />
               <AICoachInsightsCard onClick={() => setChatOpen(true)} />
               <CoachReviews />
-              <RecommendedDrillsCard drills={analysis.recommendedDrills} />
+              <RecommendedDrillsCard skills={analysis.skills} />
             </div>
           </div>
         </div>
