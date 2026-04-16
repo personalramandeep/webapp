@@ -92,7 +92,7 @@ const VideoAnalysisPage = ({ onLogout }) => {
         className="transition-all duration-300 pt-16"
         style={{ marginLeft: isSidebarCollapsed ? 72 : 280 }}
       >
-        <div className="sticky top-16 z-40 bg-[#1A1A1A] border-b border-white/5 px-4 md:px-6 py-3">
+        <div className="sticky top-16 z-40 bg-kreeda-charcoal border-b border-white/5 px-4 md:px-6 py-3">
           <div className="max-w-[1600px] mx-auto">
           <div className="flex items-center justify-between gap-4 mb-2">
             <nav className="flex items-center gap-1.5 text-xs sm:text-sm min-w-0 overflow-hidden">
