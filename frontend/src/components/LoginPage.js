@@ -17,12 +17,12 @@ const LoginPage = () => {
         
         {/* Content */}
         <div className="relative z-10 max-w-lg w-full">
-          {/* Logo - Larger size */}
+          {/* Logo - Larger size (increased by 20%) */}
           <div className="flex justify-center mb-4">
             <img 
               src="https://customer-assets.emergentagent.com/job_performance-insights-15/artifacts/08oq0dtt_LogoForVC.png" 
               alt="Kreeda Logo" 
-              className="h-[110px] w-auto"
+              className="h-[132px] w-auto"
               data-testid="kreeda-logo"
               style={{ marginBottom: '16px' }}
             />
