@@ -30,7 +30,7 @@ const PlayerDashboard = ({ user: userProp, onLogout }) => {
   };
 
   return (
-    <div className="min-h-screen bg-[#0F0F0F]">
+    <div className="min-h-screen bg-kreeda-charcoal">
       <Sidebar 
         isCollapsed={isSidebarCollapsed} 
         setIsCollapsed={setIsSidebarCollapsed}

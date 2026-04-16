@@ -64,7 +64,7 @@ const CoachMarketplace = ({ onLogout }) => {
   }, [searchQuery, activeQuickFilters, favorites]);
 
   return (
-    <div className="min-h-screen bg-[#0F0F0F]">
+    <div className="min-h-screen bg-kreeda-charcoal">
       <Sidebar 
         isCollapsed={isSidebarCollapsed} 
         setIsCollapsed={setIsSidebarCollapsed}
@@ -76,7 +76,7 @@ const CoachMarketplace = ({ onLogout }) => {
         className="transition-all duration-300 pt-16"
         style={{ marginLeft: isSidebarCollapsed ? 72 : 280 }}
       >
-        <div className="container mx-auto px-3 py-4 md:px-6 md:py-8 max-w-7xl">
+        <div className="container mx-auto px-3 py-4 md:px-6 md:py-8 max-w-7xl text-white">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}

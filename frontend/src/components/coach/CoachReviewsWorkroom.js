@@ -161,7 +161,7 @@ const CoachReviewsWorkroom = ({ onLogout }) => {
 
   if (!request || !video) {
     return (
-      <div className="min-h-screen bg-[#0F0F0F] flex items-center justify-center">
+      <div className="min-h-screen bg-kreeda-charcoal flex items-center justify-center">
         <div className="text-center">
           <p className="text-white mb-3">Review not found.</p>
           <button onClick={() => navigate('/coach/dashboard')} className="text-kreeda-orange hover:underline">
@@ -173,7 +173,7 @@ const CoachReviewsWorkroom = ({ onLogout }) => {
   }
 
   return (
-    <div className="min-h-screen bg-[#0F0F0F]">
+    <div className="min-h-screen bg-kreeda-charcoal">
       <Sidebar isCollapsed={isSidebarCollapsed} setIsCollapsed={setIsSidebarCollapsed} />
       <div className={`transition-all duration-300 ${isSidebarCollapsed ? 'ml-16' : 'ml-64'}`}>
         <Header user={identity} onLogout={onLogout} />

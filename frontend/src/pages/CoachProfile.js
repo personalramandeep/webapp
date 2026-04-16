@@ -39,7 +39,7 @@ const CoachProfile = ({ onLogout }) => {
 
   if (!coach) {
     return (
-      <div className="min-h-screen bg-[#0F0F0F]">
+      <div className="min-h-screen bg-kreeda-charcoal">
         <Sidebar 
           isCollapsed={isSidebarCollapsed} 
           setIsCollapsed={setIsSidebarCollapsed}
@@ -51,7 +51,7 @@ const CoachProfile = ({ onLogout }) => {
           className="transition-all duration-300 pt-16"
           style={{ marginLeft: isSidebarCollapsed ? 72 : 280 }}
         >
-          <div className="min-h-screen bg-kreeda-gray text-white flex items-center justify-center p-6">
+          <div className="min-h-screen bg-kreeda-charcoal text-white flex items-center justify-center p-6">
             <div className="text-center">
               <h2 className="text-2xl font-bold mb-2">Coach not found</h2>
               <p className="text-white/60 text-sm mb-4">We couldn't find a coach with that id.</p>
@@ -77,7 +77,7 @@ const CoachProfile = ({ onLogout }) => {
   };
 
   return (
-    <div className="min-h-screen bg-[#0F0F0F]">
+    <div className="min-h-screen bg-kreeda-charcoal">
       <Sidebar 
         isCollapsed={isSidebarCollapsed} 
         setIsCollapsed={setIsSidebarCollapsed}
@@ -89,7 +89,7 @@ const CoachProfile = ({ onLogout }) => {
         className="transition-all duration-300 pt-16"
         style={{ marginLeft: isSidebarCollapsed ? 72 : 280 }}
       >
-        <div className="min-h-screen bg-kreeda-gray text-white">
+        <div className="min-h-screen bg-kreeda-charcoal text-white">
           <div className="container mx-auto px-3 py-4 md:px-6 md:py-8 max-w-7xl">
         {/* Back link */}
         <button
