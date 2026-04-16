@@ -104,7 +104,7 @@ export const MOCK_COACHES = [
 
 
 export const SEED_COACH_REQUESTS = [
-  { id: 'req-seed-1', videoId: 'v-seed-1', coachId: 'coach-priya', status: 'in_review', note: '', createdAt: new Date(Date.now() - 86400000).toISOString() },
+  { id: 'req-seed-1', videoId: 'v-seed-1', coachId: 'coach-prab', status: 'in_review', note: '', createdAt: new Date(Date.now() - 86400000).toISOString() },
   { id: 'req-seed-2', videoId: 'v-seed-1', coachId: 'coach-sumit', status: 'in_review', note: '', createdAt: new Date(Date.now() - 86400000).toISOString() },
 ];
 

@@ -117,15 +117,6 @@ const VideoAnalysisPage = ({ onLogout }) => {
             </nav>
 
             <div className="flex items-center gap-2 flex-shrink-0">
-              {hasCoachReview && (
-                <button
-                  onClick={() => navigate(`/review/${videoId}`)}
-                  className="flex items-center gap-1.5 px-3 py-1.5 bg-kreeda-orange text-white rounded-lg hover:bg-opacity-90 transition-all text-xs font-medium"
-                  data-testid="view-coach-review-button"
-                >
-                  View Coach Review
-                </button>
-              )}
               <button
                 onClick={() => setShareOpen(true)}
                 className="flex items-center gap-1.5 px-3 py-1.5 bg-white/5 border border-white/10 rounded-lg hover:bg-white/10 transition-all text-xs text-white"

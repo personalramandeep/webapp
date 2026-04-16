@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { MOCK_COACHES } from '../../mocks/fixtures';
 import { addCoachRequest, useReviewStore, getCoachRequestsFor } from '../../mocks/reviewStore';
 
@@ -20,12 +20,16 @@ const formatRelative = (iso) => {
 
 const CoachReviews = () => {
   const { videoId } = useParams();
+  const navigate = useNavigate();
   const effectiveVideoId = videoId || 'v-seed-1';
   const [store] = useReviewStore();
   const requests = getCoachRequestsFor(effectiveVideoId);
   const [showRequestForm, setShowRequestForm] = useState(false);
   const [selectedCoachId, setSelectedCoachId] = useState('');
   const [expandedId, setExpandedId] = useState(null);
+  // Track which requests have started their timer
+  const [completedIds, setCompletedIds] = useState(new Set());
+  const startedTimersRef = useRef(new Set());
 
   const requestedIds = new Set(requests.map((r) => r.coachId));
   const availableCoaches = MOCK_COACHES.filter((c) => !requestedIds.has(c.id));
@@ -34,11 +38,28 @@ const CoachReviews = () => {
     .map((r) => ({ ...r, coach: MOCK_COACHES.find((c) => c.id === r.coachId) }))
     .filter((r) => r.coach);
 
+  // Start 5s timer for each in_review request to simulate completion
+  useEffect(() => {
+    enrichedRequests.forEach((r) => {
+      if (r.status === 'in_review' && !completedIds.has(r.id) && !startedTimersRef.current.has(r.id)) {
+        startedTimersRef.current.add(r.id);
+        setTimeout(() => {
+          setCompletedIds((prev) => new Set([...prev, r.id]));
+        }, 5000);
+      }
+    });
+  });
+
   const handleSend = () => {
     if (!selectedCoachId) return;
     addCoachRequest({ videoId: effectiveVideoId, coachId: selectedCoachId });
     setSelectedCoachId('');
     setShowRequestForm(false);
+  };
+
+  const getDisplayStatus = (r) => {
+    if (completedIds.has(r.id)) return 'completed';
+    return r.status;
   };
 
   return (
@@ -61,7 +82,9 @@ const CoachReviews = () => {
       <div className="space-y-2 mb-3">
         {enrichedRequests.map((r) => {
           const isExpanded = expandedId === r.id;
-          const status = STATUS_LABEL[r.status] || STATUS_LABEL.in_review;
+          const displayStatus = getDisplayStatus(r);
+          const status = STATUS_LABEL[displayStatus] || STATUS_LABEL.in_review;
+          const isCompleted = displayStatus === 'completed';
           return (
             <div key={r.id} className="bg-[#1f1f1f] border border-white/5 rounded-lg overflow-hidden">
               <button
@@ -94,7 +117,17 @@ const CoachReviews = () => {
                     exit={{ height: 0, opacity: 0 }}
                     className="px-3 pb-3 text-xs text-gray-400"
                   >
-                    <p>Sent {formatRelative(r.createdAt)}. Coach will respond within 24-48 hours.</p>
+                    {isCompleted ? (
+                      <button
+                        onClick={() => navigate(`/review/${effectiveVideoId}`)}
+                        className="text-kreeda-orange hover:underline font-medium"
+                        data-testid={`view-review-link-${r.coachId}`}
+                      >
+                        View Review
+                      </button>
+                    ) : (
+                      <p>Sent {formatRelative(r.createdAt)}. Coach will respond within 24-48 hours.</p>
+                    )}
                   </motion.div>
                 )}
               </AnimatePresence>
@@ -136,7 +169,7 @@ const CoachReviews = () => {
               className="flex-1 bg-kreeda-orange hover:bg-opacity-90 disabled:opacity-50 text-white text-sm font-medium py-2 rounded-lg transition-colors"
               data-testid="send-for-review-button"
             >
-              ▸ Send for Review
+              Send for Review
             </button>
             <button
               onClick={() => { setShowRequestForm(false); setSelectedCoachId(''); }}
