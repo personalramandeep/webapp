@@ -109,7 +109,7 @@ const Sidebar = ({ isCollapsed, setIsCollapsed, onLogout }) => {
       toast('Coming soon - you will be notified', {
         icon: '🚀',
         style: {
-          background: '#10b981',
+          background: '#1B3B36',
           color: '#fff',
           fontWeight: '500',
         },
