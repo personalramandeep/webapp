@@ -13,13 +13,18 @@ module.exports = {
       },
       animation: {
         'fade-in-out': 'fadeInOut 3s ease-in-out infinite',
+        'marquee': 'marquee 60s linear infinite',
       },
       keyframes: {
         fadeInOut: {
           '0%, 100%': { opacity: '0', transform: 'translateY(10px)' },
           '20%, 80%': { opacity: '1', transform: 'translateY(0)' },
-        }
-      }
+        },
+        marquee: {
+          '0%': { transform: 'translateX(0)' },
+          '100%': { transform: 'translateX(calc(-296px * 10))' },
+        },
+      },
     },
   },
   plugins: [],

@@ -30,48 +30,39 @@ export const MOCK_DASHBOARD_STATS = {
   improvement: 0,
 };
 
+// 10 mock leaderboard entries — fuels the scrolling ticker
 export const MOCK_LEADERBOARD = [
-  { rank: 1, name: 'Sumit Singh', city: 'Mumbai', score: 78, picture: 'https://api.dicebear.com/7.x/avataaars/svg?seed=sumit' },
-  { rank: 2, name: 'Ramandeep Singh', city: 'Delhi', score: 72, picture: MOCK_PLAYER.picture },
+  { rank: 1, name: 'Sumit Singh', city: 'Mumbai', score: 2180, change: +15, picture: 'https://api.dicebear.com/7.x/avataaars/svg?seed=sumit' },
+  { rank: 2, name: 'Ramandeep Singh', city: 'Delhi', score: 2045, change: +8, picture: MOCK_PLAYER.picture, isMe: true },
+  { rank: 3, name: 'Arjun Menon', city: 'Bangalore', score: 1987, change: -3, picture: 'https://api.dicebear.com/7.x/avataaars/svg?seed=arjun' },
+  { rank: 4, name: 'Priya Nair', city: 'Chennai', score: 1912, change: +22, picture: 'https://api.dicebear.com/7.x/avataaars/svg?seed=priya' },
+  { rank: 5, name: 'Vikram Rao', city: 'Hyderabad', score: 1876, change: +4, picture: 'https://api.dicebear.com/7.x/avataaars/svg?seed=vikram' },
+  { rank: 6, name: 'Aisha Khan', city: 'Pune', score: 1821, change: -7, picture: 'https://api.dicebear.com/7.x/avataaars/svg?seed=aisha' },
+  { rank: 7, name: 'Rohan Das', city: 'Kolkata', score: 1798, change: +11, picture: 'https://api.dicebear.com/7.x/avataaars/svg?seed=rohan' },
+  { rank: 8, name: 'Nisha Patel', city: 'Ahmedabad', score: 1754, change: 0, picture: 'https://api.dicebear.com/7.x/avataaars/svg?seed=nisha' },
+  { rank: 9, name: 'Karan Malhotra', city: 'Chandigarh', score: 1702, change: +6, picture: 'https://api.dicebear.com/7.x/avataaars/svg?seed=karan' },
+  { rank: 10, name: 'Divya Reddy', city: 'Jaipur', score: 1689, change: -2, picture: 'https://api.dicebear.com/7.x/avataaars/svg?seed=divya' },
 ];
 
-const COURT_THUMBS = [
-  'https://images.unsplash.com/photo-1626224583764-f87db24ac4ea?w=400',
-  'https://images.unsplash.com/photo-1599586120429-48719d1a20f6?w=400',
-  'https://images.unsplash.com/photo-1626224583764-f87db24ac4ea?w=400&sat=-100',
-  'https://images.unsplash.com/photo-1599586120429-48719d1a20f6?w=400&blur=10',
-];
+// 3 curated high-quality badminton thumbnails — reused across the 4 seed videos
+const THUMB_SMASH = 'https://images.unsplash.com/photo-1626224583764-f87db24ac4ea?w=800&h=1000&fit=crop&q=80';
+const THUMB_RALLY = 'https://images.unsplash.com/photo-1599586120429-48719d1a20f6?w=800&h=1000&fit=crop&q=80';
+const THUMB_NET = 'https://images.unsplash.com/photo-1613918431703-aa50889e3be3?w=800&h=1000&fit=crop&q=80';
 
-export const MOCK_VIDEOS = COURT_THUMBS.map((thumbnail, i) => ({
-  id: `v-seed-${i + 1}`,
-  title: `Match ${i + 1}`,
-  thumbnail,
-  videoUrl: 'https://storage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
-  uploadedAt: new Date(Date.now() - (i + 1) * 86400000).toISOString(),
-  duration: 42,
-  aiScore: 72,
-  grade: 'B',
-  status: 'analyzed',
-}));
+export const VIDEO_THUMBNAILS = { smash: THUMB_SMASH, rally: THUMB_RALLY, net: THUMB_NET };
+
+export const MOCK_VIDEOS = [
+  { id: 'v-seed-1', title: 'Singles Match - Court 2', thumbnail: THUMB_SMASH, videoUrl: 'https://storage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4', uploadedAt: new Date(Date.now() - 1 * 86400000).toISOString(), duration: 42, aiScore: 72, grade: 'B', status: 'analyzed' },
+  { id: 'v-seed-2', title: 'Rally Practice', thumbnail: THUMB_RALLY, videoUrl: 'https://storage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4', uploadedAt: new Date(Date.now() - 2 * 86400000).toISOString(), duration: 38, aiScore: 68, grade: 'B', status: 'analyzed' },
+  { id: 'v-seed-3', title: 'Net Drills', thumbnail: THUMB_NET, videoUrl: 'https://storage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4', uploadedAt: new Date(Date.now() - 3 * 86400000).toISOString(), duration: 44, aiScore: 75, grade: 'B+', status: 'analyzed' },
+  { id: 'v-seed-4', title: 'Match Highlights', thumbnail: THUMB_SMASH, videoUrl: 'https://storage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4', uploadedAt: new Date(Date.now() - 4 * 86400000).toISOString(), duration: 40, aiScore: 70, grade: 'B', status: 'analyzed' },
+];
 
 export const MOCK_COACHES = [
-  {
-    id: 'coach-prab',
-    name: 'Prabhsharan Kour',
-    specialization: 'Defence & Footwork',
-    rating: 3.0,
-    picture: 'https://api.dicebear.com/7.x/avataaars/svg?seed=prabsharan',
-  },
-  {
-    id: 'coach-sumit',
-    name: 'Sumit Singh',
-    specialization: 'Footwork',
-    rating: 3.5,
-    picture: 'https://api.dicebear.com/7.x/avataaars/svg?seed=sumit',
-  },
+  { id: 'coach-prab', name: 'Prabhsharan Kour', specialization: 'Defence & Footwork', rating: 3.0, picture: 'https://api.dicebear.com/7.x/avataaars/svg?seed=prabsharan' },
+  { id: 'coach-sumit', name: 'Sumit Singh', specialization: 'Footwork', rating: 3.5, picture: 'https://api.dicebear.com/7.x/avataaars/svg?seed=sumit' },
 ];
 
-// Prefilled so seed videos show review activity like Image 4
 export const SEED_COACH_REQUESTS = [
   { id: 'req-seed-1', videoId: 'v-seed-1', coachId: 'coach-prab', status: 'in_review', note: '', createdAt: new Date(Date.now() - 86400000).toISOString() },
   { id: 'req-seed-2', videoId: 'v-seed-1', coachId: 'coach-sumit', status: 'in_review', note: '', createdAt: new Date(Date.now() - 86400000).toISOString() },
@@ -95,8 +86,6 @@ export const MOCK_AI_CHAT_HISTORY = [
 export const COACH_FEEDBACK_TAGS = ['General', 'Footwork', 'Defense', 'Smash', 'Serve'];
 export const ANNOTATION_COLORS = ['#F45831', '#FFFFFF', '#FBBF24', '#10B981', '#EF4444'];
 
-// Pre-seeded coach feedback + drill suggestions for the Performance Review page
-// (shown when a player opens a video that a coach has already reviewed)
 export const SEED_COACH_FEEDBACK = {
   'v-seed-1': [
     { id: 'f1', timestamp: 12, text: 'Good split step here, but recover faster to base.', tags: ['Footwork'] },
@@ -108,9 +97,18 @@ export const SEED_COACH_FEEDBACK = {
 
 export const SEED_SUGGESTED_DRILLS = {
   'v-seed-1': [
-    { id: 'd1', title: 'Split-step ladder', duration: '10 min', difficulty: 'Medium', category: 'Footwork', thumbnail: COURT_THUMBS[0] },
-    { id: 'd2', title: 'Shadow defensive clears', duration: '12 min', difficulty: 'Easy', category: 'Defense', thumbnail: COURT_THUMBS[1] },
-    { id: 'd3', title: 'Jump smash progression', duration: '15 min', difficulty: 'Hard', category: 'Smash', thumbnail: COURT_THUMBS[2] },
-    { id: 'd4', title: 'Net kill reaction drill', duration: '8 min', difficulty: 'Medium', category: 'Net Play', thumbnail: COURT_THUMBS[3] },
+    { id: 'd1', title: 'Split-step ladder', duration: '10 min', difficulty: 'Medium', category: 'Footwork', thumbnail: THUMB_RALLY },
+    { id: 'd2', title: 'Shadow defensive clears', duration: '12 min', difficulty: 'Easy', category: 'Defense', thumbnail: THUMB_NET },
+    { id: 'd3', title: 'Jump smash progression', duration: '15 min', difficulty: 'Hard', category: 'Smash', thumbnail: THUMB_SMASH },
+    { id: 'd4', title: 'Net kill reaction drill', duration: '8 min', difficulty: 'Medium', category: 'Net Play', thumbnail: THUMB_NET },
   ],
 };
+
+// Bell-icon notifications shown on the dashboard
+export const MOCK_NOTIFICATIONS = [
+  { id: 'n1', type: 'coach_review', title: 'Prabhsharan Kour finished your review', body: 'Your "Singles Match - Court 2" has 4 new coach comments and a drill plan.', timeAgo: '2h ago', unread: true, icon: 'review' },
+  { id: 'n2', type: 'ai_insight', title: 'KreedAI spotted a trend', body: 'Your footwork improved 12% across your last 3 matches. Keep it up!', timeAgo: '5h ago', unread: true, icon: 'sparkles' },
+  { id: 'n3', type: 'leaderboard', title: 'You moved up to #2 in Delhi', body: 'You passed Arjun Menon. Sumit Singh is 135 ELO ahead.', timeAgo: '1d ago', unread: true, icon: 'trophy' },
+  { id: 'n4', type: 'challenge', title: '7-day streak unlocked', body: 'Train again today to keep your streak alive.', timeAgo: '1d ago', unread: false, icon: 'fire' },
+  { id: 'n5', type: 'friend', title: 'Sumit Singh shared an analysis', body: '"That jump smash was filthy 🔥 — check my latest match."', timeAgo: '2d ago', unread: false, icon: 'user' },
+];

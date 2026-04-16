@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import Sidebar from './Sidebar';
 import Header from './Header';
-import AnnouncementBanner from './AnnouncementBanner';
 import LeaderboardStrip from './LeaderboardStrip';
 import QuickStats from './QuickStats';
 import EmptyState from './EmptyState';
@@ -35,14 +34,15 @@ const PlayerDashboard = ({ user: userProp, onLogout }) => {
     <div className="min-h-screen bg-[#0F0F0F]">
       <Sidebar isCollapsed={isSidebarCollapsed} setIsCollapsed={setIsSidebarCollapsed} />
 
-      <div className={`transition-all duration-300 ${isSidebarCollapsed ? 'ml-16' : 'ml-64'}`}>
+      <div
+        className="transition-all duration-300 pt-16"
+        style={{ marginLeft: isSidebarCollapsed ? 72 : 280 }}
+      >
         <Header onLogout={onLogout} />
 
         <main className="p-6">
           <div className="max-w-7xl mx-auto">
-            <AnnouncementBanner />
-
-            <LeaderboardStrip currentUserId={user?.id} />
+            <LeaderboardStrip />
 
             <div className="mb-6 md:mb-8">
               <h1 className="text-white text-3xl md:text-4xl font-bold mb-2" data-testid="welcome-heading">
