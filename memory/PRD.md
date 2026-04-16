@@ -56,7 +56,7 @@ Kreeda analyzes badminton videos to deliver data-driven coaching insights. Curre
 - **Testing**: 100% pass rate (32/32 test IDs verified, iteration 4)
 
 ## Backlog
-- **P1**: Cleanup unused Auth components (`AuthCallback.js`) and backend auth endpoints
+- **P1**: ~~Cleanup unused Auth components (`AuthCallback.js`) and backend auth endpoints~~ DONE (Feb 2026)
 - **P2**: Implement real backend endpoints and MongoDB storage
 - **P2**: Integrate actual video processing/MediaPipe for real analysis
 
