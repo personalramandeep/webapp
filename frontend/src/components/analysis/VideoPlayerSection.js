@@ -24,6 +24,22 @@ const VideoPlayerSection = ({ videoUrl, thumbnail, duration: propsDuration = 0, 
     if (propsDuration && propsDuration > 0) setDuration(propsDuration);
   }, [propsDuration]);
 
+  useEffect(() => {
+    const handleSeek = (e) => {
+      const t = e.detail;
+      if (videoUrl && videoRef.current) {
+        videoRef.current.currentTime = t;
+        if (!isPlaying) {
+          videoRef.current.play().catch(() => {});
+          setIsPlaying(true);
+        }
+      }
+      setCurrentTime(t);
+    };
+    window.addEventListener('kreeda:seek-video', handleSeek);
+    return () => window.removeEventListener('kreeda:seek-video', handleSeek);
+  }, [videoUrl, isPlaying]);
+
   const handlePlayPause = () => {
     if (videoUrl && videoRef.current) {
       if (isPlaying) videoRef.current.pause();

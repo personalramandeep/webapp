@@ -25,7 +25,7 @@ const formatTimestamp = (seconds) => {
   return `${m}:${s.toString().padStart(2, '0')}`;
 };
 
-const KeyMomentsTimeline = ({ moments }) => {
+const KeyMomentsTimeline = ({ moments, onSeek }) => {
   const timelineRef = useRef(null);
 
   useEffect(() => {
@@ -69,6 +69,7 @@ const KeyMomentsTimeline = ({ moments }) => {
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ delay: 0.4 + index * 0.1 }}
                 className={`moment-card bg-gradient-to-br ${colors.bg} backdrop-blur-sm border ${colors.border} rounded-lg sm:rounded-xl overflow-hidden cursor-pointer min-w-[220px] max-w-[220px] sm:min-w-[240px] sm:max-w-[240px] hover:shadow-lg hover:-translate-y-1 transition-all`}
+                onClick={() => onSeek && onSeek(moment.timestamp)}
               >
                 {moment.thumbnail && (
                   <div className="relative w-full aspect-video">

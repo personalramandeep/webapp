@@ -10,7 +10,7 @@
 //   - Kept: breadcrumb, Share + Back buttons, hasCoachReview "View Coach Review" gate,
 //           ShareAnalyticsModal + AICoachChatPanel wiring, pencil edit icon next to title
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import Sidebar from './dashboard/Sidebar';
@@ -79,6 +79,11 @@ const VideoAnalysisPage = ({ onLogout }) => {
     const open = () => setChatOpen(true);
     window.addEventListener('kreeda:open-ai-chat', open);
     return () => window.removeEventListener('kreeda:open-ai-chat', open);
+  }, []);
+
+  const handleSeekVideo = useCallback((timestamp) => {
+    window.dispatchEvent(new CustomEvent('kreeda:seek-video', { detail: timestamp }));
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }, []);
 
   return (
@@ -173,7 +178,7 @@ const VideoAnalysisPage = ({ onLogout }) => {
             </div>
 
             <SmartMatchmaking />
-            <KeyMomentsTimeline moments={analysis.keyMoments} />
+            <KeyMomentsTimeline moments={analysis.keyMoments} onSeek={handleSeekVideo} />
           </div>
 
           {/* RIGHT COLUMN */}

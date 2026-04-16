@@ -115,10 +115,10 @@ export function getAnalysisFor(videoId, baseScore = 72) {
     highlight: ['Outstanding execution', 'Perfect technique', 'Incredible athleticism', 'Masterful control'],
   };
   const momentThumbs = [
-    'https://images.unsplash.com/photo-1626224583764-f87db24ac4ea?w=400&h=240&fit=crop',
-    'https://images.unsplash.com/photo-1553778263-73a83bab9b0c?w=400&h=240&fit=crop',
-    'https://images.unsplash.com/photo-1594623930572-300a3011d9ae?w=400&h=240&fit=crop',
-    'https://images.unsplash.com/photo-1622163642998-1ea32b0bbc67?w=400&h=240&fit=crop',
+    '/assets/thumbnail1.webp',
+    '/assets/thumbnail2.webp',
+    '/assets/thumbnail3.webp',
+    '/assets/thumbnail4.webp',
   ];
   const types = ['strength', 'weakness', 'highlight'];
   const skillNames = ['footwork', 'netPlay', 'defense', 'smash'];
