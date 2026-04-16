@@ -32,7 +32,7 @@ const SkillBreakdownCard = ({ skills }) => {
       <h3 className="text-sm sm:text-base font-bold text-white mb-2 sm:mb-3">Skill Breakdown</h3>
 
       <div className="mb-2 sm:mb-4">
-        <SkillRadarChart skills={skills} size={220} />
+        <SkillRadarChart skills={skills} size={220} showTitle={false} />
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-1.5">
