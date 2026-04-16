@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 
 const useCountUp = (target, duration = 1500, delay = 300) => {
@@ -152,12 +151,6 @@ const OverallScoreCard = ({ analysis }) => {
         </div>
       </div>
 
-      <Link
-        to="/performance"
-        className="block text-xs text-white/40 hover:text-kreeda-orange transition-colors text-right mt-1"
-      >
-        View Overall Performance →
-      </Link>
     </motion.div>
   );
 };

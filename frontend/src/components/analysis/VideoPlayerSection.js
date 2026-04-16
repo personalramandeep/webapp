@@ -114,13 +114,6 @@ const VideoPlayerSection = ({ videoUrl, thumbnail, duration: propsDuration = 0, 
           </button>
         )}
 
-        {aiScore !== undefined && (
-          <div className="absolute top-3 right-3 bg-black/60 backdrop-blur-sm px-2.5 py-1 rounded-lg border border-white/10">
-            <span className="text-kreeda-orange font-bold text-sm">AI Score: </span>
-            <span className="text-white font-bold text-sm">{aiScore}</span>
-          </div>
-        )}
-
         <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent p-3 pt-8">
           <div
             className="relative h-1.5 bg-white/20 rounded-full cursor-pointer mb-2 group"
