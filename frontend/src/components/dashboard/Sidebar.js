@@ -93,7 +93,7 @@ const Sidebar = ({ isCollapsed, setIsCollapsed }) => {
           <img 
             src="/assets/kreeda-logo.png" 
             alt="Kreeda" 
-            className="h-8 w-auto"
+            className="h-16 w-auto"
           />
         </button>
       </div>

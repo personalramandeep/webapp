@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Sidebar from './Sidebar';
-import Header from './Header';
+import DashboardControls from './DashboardControls';
 import LeaderboardStrip from './LeaderboardStrip';
 import QuickStats from './QuickStats';
 import EmptyState from './EmptyState';
@@ -38,10 +38,10 @@ const PlayerDashboard = ({ user: userProp, onLogout }) => {
         className="transition-all duration-300 pt-16"
         style={{ marginLeft: isSidebarCollapsed ? 72 : 280 }}
       >
-        <Header onLogout={onLogout} />
-
         <main className="p-6">
           <div className="max-w-7xl mx-auto">
+            <DashboardControls onLogout={onLogout} />
+            
             <LeaderboardStrip />
 
             <div className="mb-6 md:mb-8">
