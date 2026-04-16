@@ -1,127 +1,122 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
+import { MOCK_VIDEOS } from '../../mocks/fixtures';
+
+const VideoTile = ({ video, index, onClick }) => {
+  const [showType, setShowType] = useState(false);
+
+  useEffect(() => {
+    const id = setInterval(() => setShowType((v) => !v), 3000);
+    return () => clearInterval(id);
+  }, []);
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ delay: index * 0.05 }}
+      className="relative rounded-3xl overflow-hidden group cursor-pointer hover:shadow-2xl transition-shadow"
+      onClick={onClick}
+    >
+      <div className="relative w-full aspect-[4/3] sm:aspect-[4/5] overflow-hidden bg-[#1B3B36]/40">
+        <img
+          src={video.thumbnail}
+          alt={video.title}
+          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+        />
+
+        {/* Alternating badge */}
+        <div className="absolute top-3 right-3 z-20">
+          <AnimatePresence mode="wait">
+            {showType ? (
+              <motion.div
+                key="type"
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.8 }}
+                transition={{ duration: 0.3 }}
+                className="px-3 py-1.5 bg-black/80 backdrop-blur-sm rounded-xl shadow-lg"
+              >
+                <span className="text-white/90 font-semibold text-xs">Singles</span>
+              </motion.div>
+            ) : (
+              <motion.div
+                key="score"
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.8 }}
+                transition={{ duration: 0.3 }}
+                className="px-3 py-1.5 bg-black/80 backdrop-blur-sm rounded-xl flex items-center gap-2 shadow-lg"
+              >
+                <svg className="w-4 h-4 text-kreeda-orange" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M2 11a1 1 0 011-1h2a1 1 0 011 1v5a1 1 0 01-1 1H3a1 1 0 01-1-1v-5zM8 7a1 1 0 011-1h2a1 1 0 011 1v9a1 1 0 01-1 1H9a1 1 0 01-1-1V7zM14 4a1 1 0 011-1h2a1 1 0 011 1v12a1 1 0 01-1 1h-2a1 1 0 01-1-1V4z" />
+                </svg>
+                <span className="text-white font-bold text-sm">{video.aiScore}</span>
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </div>
+
+        {/* Hover overlay */}
+        <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-end p-6 z-10">
+          <p className="text-white/90 text-xs italic text-center line-clamp-2 mb-4 opacity-0 group-hover:opacity-100 transition-opacity delay-100 duration-300">
+            "Great footwork! Focus on your net play for better results."
+          </p>
+          <button className="bg-kreeda-orange hover:bg-opacity-90 text-white rounded-xl px-8 py-3 shadow-lg font-semibold transform translate-y-8 group-hover:translate-y-0 transition-transform delay-150 duration-300">
+            View Analysis
+          </button>
+        </div>
+      </div>
+    </motion.div>
+  );
+};
 
 const RecentVideos = ({ onUploadClick }) => {
   const navigate = useNavigate();
 
-  // Mock video data
-  const videos = [
-    {
-      id: 'video-1',
-      thumbnail: 'https://images.unsplash.com/photo-1626224583764-f87db24ac4ea?w=400&h=300&fit=crop',
-      title: 'Singles Match - Court 2',
-      date: '2 days ago',
-      duration: '45:32',
-      analyzed: true,
-      score: 85
-    },
-    {
-      id: 'video-2',
-      thumbnail: 'https://images.unsplash.com/photo-1553778263-73a83bab9b0c?w=400&h=300&fit=crop',
-      title: 'Practice Session',
-      date: '3 days ago',
-      duration: '32:15',
-      analyzed: true,
-      score: 78
-    },
-    {
-      id: 'video-3',
-      thumbnail: 'https://images.unsplash.com/photo-1594623930572-300a3011d9ae?w=400&h=300&fit=crop',
-      title: 'Tournament - Finals',
-      date: '1 week ago',
-      duration: '58:20',
-      analyzed: true,
-      score: 92
-    },
-  ];
-
-  const handleVideoClick = (videoId) => {
-    navigate(`/analysis/${videoId}`);
-  };
-
   return (
-    <div className="space-y-6" data-testid="recent-videos-section">
-      {/* Upload Card */}
-      <div className="bg-gradient-to-r from-orange-900 to-red-900 bg-opacity-50 rounded-2xl p-6 border border-orange-800">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-4">
-            <div className="w-14 h-14 bg-kreeda-orange rounded-xl flex items-center justify-center">
-              <svg className="w-7 h-7 text-white" fill="currentColor" viewBox="0 0 20 20">
-                <path d="M2 6a2 2 0 012-2h6a2 2 0 012 2v8a2 2 0 01-2 2H4a2 2 0 01-2-2V6zM14.553 7.106A1 1 0 0014 8v4a1 1 0 00.553.894l2 1A1 1 0 0018 13V7a1 1 0 00-1.447-.894l-2 1z" />
-              </svg>
-            </div>
-            <div>
-              <h3 className="text-white font-bold text-xl mb-1">Upload New Video</h3>
-              <p className="text-orange-200 text-sm">Last analyzed: 1 day ago</p>
-            </div>
+    <div className="space-y-4">
+      {/* Orange-gradient Upload band */}
+      <motion.div
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="bg-gradient-to-br from-kreeda-orange/20 to-kreeda-orange/5 border border-kreeda-orange/30 p-4 md:p-6 rounded-2xl md:rounded-3xl hover:shadow-2xl transition-all"
+      >
+        <div className="flex flex-row items-center justify-between gap-4">
+          <div>
+            <h3 className="text-xl font-bold text-white mb-1">Upload New Video</h3>
+            <p className="text-white/60 text-sm">Last analyzed: 1 day ago</p>
           </div>
           <button
             onClick={onUploadClick}
-            className="bg-kreeda-orange hover:bg-opacity-90 text-white px-8 py-3 rounded-xl font-bold transition-all flex items-center gap-2 shadow-lg hover:shadow-xl hover:scale-105"
-            data-testid="upload-video-button"
+            className="inline-flex items-center gap-2 bg-kreeda-orange hover:bg-opacity-90 text-white h-10 px-4 rounded-xl shadow-lg font-semibold"
           >
-            <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-              <path fillRule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM6.293 6.707a1 1 0 010-1.414l3-3a1 1 0 011.414 0l3 3a1 1 0 01-1.414 1.414L11 5.414V13a1 1 0 11-2 0V5.414L7.707 6.707a1 1 0 01-1.414 0z" clipRule="evenodd" />
+            <svg className="w-4 h-5" fill="currentColor" viewBox="0 0 20 20">
+              <path fillRule="evenodd" d="M2 6a2 2 0 012-2h6a2 2 0 012 2v8a2 2 0 01-2 2H4a2 2 0 01-2-2V6zm14.553-1.276A1 1 0 0118 5.618v8.764a1 1 0 01-1.447.894L14 13.768V6.232l2.553-1.508z" clipRule="evenodd" />
             </svg>
             Upload
           </button>
         </div>
-      </div>
+      </motion.div>
 
-      {/* Recent Videos Grid */}
+      {/* Recent Videos header + grid */}
       <div>
         <div className="flex items-center justify-between mb-4">
-          <h3 className="text-white font-bold text-xl">Recent Videos</h3>
-          <button className="text-kreeda-orange hover:text-orange-400 text-sm font-semibold transition-colors">
+          <h2 className="text-2xl font-bold text-white">Recent Videos</h2>
+          <button className="text-white hover:text-kreeda-orange text-sm transition-colors px-3 py-1.5">
             View All
           </button>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          {videos.map((video) => (
-            <div
+
+        <div className="grid grid-cols-2 lg:grid-cols-2 gap-3 md:gap-4">
+          {MOCK_VIDEOS.slice(0, 4).map((video, index) => (
+            <VideoTile
               key={video.id}
-              onClick={() => handleVideoClick(video.id)}
-              className="group relative bg-[#1A1A1A] rounded-2xl overflow-hidden border border-gray-800 hover:border-gray-700 transition-all cursor-pointer hover:scale-105"
-              data-testid={`video-card-${video.id}`}
-            >
-              {/* Thumbnail */}
-              <div className="relative aspect-video bg-gray-900 overflow-hidden">
-                <img 
-                  src={video.thumbnail} 
-                  alt={video.title}
-                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                />
-                {/* Duration Badge */}
-                <div className="absolute bottom-3 right-3 bg-black bg-opacity-75 text-white text-xs px-2 py-1 rounded-lg font-semibold">
-                  {video.duration}
-                </div>
-                {/* AI Score Badge */}
-                {video.analyzed && (
-                  <div className="absolute top-3 right-3 bg-kreeda-orange text-white text-sm px-3 py-1.5 rounded-lg font-bold flex items-center gap-1 shadow-lg">
-                    <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                    </svg>
-                    {video.score}
-                  </div>
-                )}
-                {/* Hover Overlay */}
-                <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-70 transition-all flex items-center justify-center">
-                  <div className="opacity-0 group-hover:opacity-100 transition-opacity transform translate-y-4 group-hover:translate-y-0">
-                    <button className="bg-kreeda-orange text-white px-6 py-3 rounded-xl font-semibold flex items-center gap-2 shadow-xl">
-                      <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                        <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clipRule="evenodd" />
-                      </svg>
-                      View Analysis
-                    </button>
-                  </div>
-                </div>
-              </div>
-              {/* Info */}
-              <div className="p-4">
-                <h4 className="text-white font-semibold mb-1 truncate">{video.title}</h4>
-                <p className="text-gray-400 text-sm">{video.date}</p>
-              </div>
-            </div>
+              video={video}
+              index={index}
+              onClick={() => navigate(`/analysis/${video.id}`)}
+            />
           ))}
         </div>
       </div>

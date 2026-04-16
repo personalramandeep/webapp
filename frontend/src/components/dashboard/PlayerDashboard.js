@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Sidebar from './Sidebar';
 import Header from './Header';
+import AnnouncementBanner from './AnnouncementBanner';
 import LeaderboardStrip from './LeaderboardStrip';
 import QuickStats from './QuickStats';
 import EmptyState from './EmptyState';
@@ -38,27 +39,31 @@ const PlayerDashboard = ({ user: userProp, onLogout }) => {
         <Header onLogout={onLogout} />
 
         <main className="p-6">
-          <LeaderboardStrip currentUserId="2" />
+          <div className="max-w-7xl mx-auto">
+            <AnnouncementBanner />
 
-          <div className="mb-6">
-            <h1 className="text-white text-4xl font-bold mb-2" data-testid="welcome-heading">
-              Welcome back, {user?.name?.split(' ')[0] || 'Player'}!
-            </h1>
-            <p className="text-gray-400 text-lg">Your training progress at a glance</p>
-          </div>
+            <LeaderboardStrip currentUserId={user?.id} />
 
-          <QuickStats stats={userStats} isEmpty={!hasVideos} />
-
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-            <div className="lg:col-span-2 space-y-6">
-              {hasVideos ? (
-                <RecentVideos onUploadClick={() => setIsUploadModalOpen(true)} />
-              ) : (
-                <EmptyState onUploadClick={() => setIsUploadModalOpen(true)} />
-              )}
+            <div className="mb-6 md:mb-8">
+              <h1 className="text-white text-3xl md:text-4xl font-bold mb-2" data-testid="welcome-heading">
+                Welcome back, {user?.name?.split(' ')[0] || 'Player'}!
+              </h1>
+              <p className="text-white/60 text-lg">Your training progress at a glance</p>
             </div>
-            <div className="lg:col-span-1">
-              <ActionCards />
+
+            <QuickStats stats={userStats} isEmpty={!hasVideos} />
+
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 md:gap-6">
+              <div className="lg:col-span-2 space-y-4">
+                {hasVideos ? (
+                  <RecentVideos onUploadClick={() => setIsUploadModalOpen(true)} />
+                ) : (
+                  <EmptyState onUploadClick={() => setIsUploadModalOpen(true)} />
+                )}
+              </div>
+              <div className="lg:col-span-1">
+                <ActionCards />
+              </div>
             </div>
           </div>
         </main>

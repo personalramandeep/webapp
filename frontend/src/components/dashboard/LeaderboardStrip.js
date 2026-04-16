@@ -1,106 +1,55 @@
-import React, { useEffect, useRef } from 'react';
+import React from 'react';
+import { MOCK_LEADERBOARD } from '../../mocks/fixtures';
+
+const LeaderboardPlayerPill = ({ player }) => (
+  <div className="flex items-center gap-3 px-4 py-2 bg-white/5 border border-white/10 rounded-full flex-shrink-0 hover:border-kreeda-orange/30 transition-colors">
+    <span className={`text-xs font-bold ${player.rank === 1 ? 'text-yellow-400' : player.rank === 2 ? 'text-gray-300' : 'text-orange-400'}`}>
+      #{player.rank}
+    </span>
+    <img
+      src={player.picture}
+      alt={player.name}
+      className="w-7 h-7 rounded-full border border-white/20"
+    />
+    <div className="flex flex-col leading-tight">
+      <span className="text-white text-xs font-semibold whitespace-nowrap">{player.name}</span>
+      <span className="text-white/50 text-[10px]">{player.city}</span>
+    </div>
+    <div className="flex items-center gap-1 px-2 py-0.5 bg-kreeda-orange/10 rounded-full">
+      <svg className="w-3 h-3 text-kreeda-orange" fill="currentColor" viewBox="0 0 20 20">
+        <path d="M2 11a1 1 0 011-1h2a1 1 0 011 1v5a1 1 0 01-1 1H3a1 1 0 01-1-1v-5zM8 7a1 1 0 011-1h2a1 1 0 011 1v9a1 1 0 01-1 1H9a1 1 0 01-1-1V7zM14 4a1 1 0 011-1h2a1 1 0 011 1v12a1 1 0 01-1 1h-2a1 1 0 01-1-1V4z" />
+      </svg>
+      <span className="text-kreeda-orange text-xs font-bold">{player.score}</span>
+    </div>
+  </div>
+);
 
 const LeaderboardStrip = ({ currentUserId }) => {
-  const scrollRef = useRef(null);
-
-  // Mock leaderboard data - duplicated for seamless loop
-  const leaderboardData = [
-    { id: '1', rank: 1, name: 'Kavya Iyer', location: 'Ahmedabad', elo: 2250, avatar: '🥇' },
-    { id: '2', rank: 2, name: 'Sumit Singh', location: 'Mumbai', elo: 2178, avatar: '🥈' },
-    { id: '3', rank: 3, name: 'Ramandeep S.', location: 'Delhi', elo: 2072, avatar: '🥉' },
-    { id: '4', rank: 4, name: 'Aditya Mehta', location: 'Jaipur', elo: 2001, avatar: '⭐' },
-    { id: '5', rank: 5, name: 'Ishita Joshi', location: 'Lucknow', elo: 2181, avatar: '🌟' },
-    { id: '6', rank: 6, name: 'Arjun Sharma', location: 'Mumbai', elo: 2440, avatar: '🔥' },
-    { id: '7', rank: 7, name: 'Priya Patel', location: 'Delhi', elo: 2198, avatar: '✨' },
-  ];
-
-  // Duplicate data for seamless infinite scroll
-  const duplicatedData = [...leaderboardData, ...leaderboardData, ...leaderboardData];
-
-  useEffect(() => {
-    const scrollContainer = scrollRef.current;
-    if (!scrollContainer) return;
-
-    let animationId;
-    let scrollPosition = 0;
-    const scrollSpeed = 0.5; // Adjust speed here (0.5 = medium, 1 = fast, 0.3 = slow)
-
-    const scroll = () => {
-      scrollPosition += scrollSpeed;
-      
-      // Reset scroll position when we've scrolled through one set of items
-      const cardWidth = 280; // Width of each card + gap
-      const resetPoint = leaderboardData.length * cardWidth;
-      
-      if (scrollPosition >= resetPoint) {
-        scrollPosition = 0;
-      }
-      
-      scrollContainer.scrollLeft = scrollPosition;
-      animationId = requestAnimationFrame(scroll);
-    };
-
-    animationId = requestAnimationFrame(scroll);
-
-    return () => {
-      if (animationId) {
-        cancelAnimationFrame(animationId);
-      }
-    };
-  }, [leaderboardData.length]);
-
   return (
-    <div className="relative mb-6" data-testid="leaderboard-strip">
-      <div className="flex items-center justify-between mb-4">
+    <div className="w-full bg-gradient-to-r from-[#1A1A1A] via-[#1A1A1A]/95 to-[#1A1A1A] border border-white/10 rounded-xl overflow-hidden mb-6">
+      <div className="flex items-center justify-between px-6 py-2 border-b border-white/5">
         <div className="flex items-center gap-2">
-          <span className="text-2xl">🏆</span>
-          <h3 className="text-white font-semibold text-lg">Live Leaderboard</h3>
-          <span className="px-2 py-1 bg-green-600 text-white text-xs rounded-full animate-pulse font-semibold">LIVE</span>
+          <svg className="w-5 h-5 text-kreeda-orange" fill="currentColor" viewBox="0 0 20 20">
+            <path fillRule="evenodd" d="M5 2a1 1 0 011 1v1h1a1 1 0 010 2H6v1a1 1 0 01-2 0V6H3a1 1 0 010-2h1V3a1 1 0 011-1zm0 10a1 1 0 011 1v1h1a1 1 0 110 2H6v1a1 1 0 11-2 0v-1H3a1 1 0 110-2h1v-1a1 1 0 011-1zm7-10a1 1 0 01.967.744L14.146 7.2 17.5 9.134a1 1 0 010 1.732l-3.354 1.935-1.18 4.455a1 1 0 01-1.933 0L9.854 12.8 6.5 10.866a1 1 0 010-1.732l3.354-1.935 1.18-4.455A1 1 0 0112 2z" clipRule="evenodd" />
+          </svg>
+          <span className="text-sm font-semibold text-white">Live Leaderboard</span>
+          <span className="px-2 py-0.5 bg-green-500/20 text-green-400 text-xs font-medium rounded-full animate-pulse">
+            LIVE
+          </span>
         </div>
-        <button className="text-kreeda-orange hover:text-orange-400 text-sm font-semibold transition-colors">
-          View Top 20 →
+        <button className="flex items-center gap-1 text-xs text-white/70 hover:text-kreeda-orange transition-colors group">
+          <span>View Full Leaderboard</span>
+          <svg className="w-4 h-4 group-hover:translate-y-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+          </svg>
         </button>
       </div>
 
-      {/* Scrollable Container - Auto-scrolling ticker style */}
-      <div className="relative overflow-hidden">
-        <div 
-          ref={scrollRef}
-          className="flex gap-4 overflow-x-hidden pb-2 scrollbar-hide"
-          style={{ scrollBehavior: 'auto' }}
-        >
-          {duplicatedData.map((player, index) => {
-            const isCurrentUser = player.id === currentUserId && index < leaderboardData.length;
-            return (
-              <div
-                key={`${player.id}-${index}`}
-                className={`flex-shrink-0 w-64 p-4 rounded-xl border transition-all ${
-                  isCurrentUser
-                    ? 'bg-kreeda-orange bg-opacity-20 border-kreeda-orange'
-                    : 'bg-[#1A1A1A] border-gray-800'
-                }`}
-                data-testid={`leaderboard-card-${player.id}`}
-              >
-                <div className="flex items-center gap-3">
-                  <div className="text-3xl">{player.avatar}</div>
-                  <div className="flex-1 min-w-0">
-                    <div className="flex items-center gap-2 mb-1">
-                      <span className="text-gray-400 text-sm font-semibold">#{player.rank}</span>
-                      {isCurrentUser && (
-                        <span className="px-2 py-0.5 bg-kreeda-orange text-white text-xs rounded-full font-semibold">You</span>
-                      )}
-                    </div>
-                    <p className="text-white font-semibold truncate">{player.name}</p>
-                    <p className="text-gray-400 text-sm">📍 {player.location}</p>
-                  </div>
-                  <div className="text-right">
-                    <p className="text-kreeda-orange font-bold text-xl">{player.elo}</p>
-                    <p className="text-gray-400 text-xs">ELO</p>
-                  </div>
-                </div>
-              </div>
-            );
-          })}
+      <div className="relative py-3 px-4">
+        <div className="flex items-center gap-3 overflow-x-auto scrollbar-hide">
+          {MOCK_LEADERBOARD.map((player) => (
+            <LeaderboardPlayerPill key={player.rank} player={player} />
+          ))}
         </div>
       </div>
     </div>
