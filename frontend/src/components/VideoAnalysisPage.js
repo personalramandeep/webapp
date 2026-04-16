@@ -22,6 +22,7 @@ import OverallScoreCard from './analysis/OverallScoreCard';
 import AICoachInsightsCard from './analysis/AICoachInsightsCard';
 import CoachReviews from './analysis/CoachReviews';
 import RecommendedDrillsCard from './analysis/RecommendedDrillsCard';
+import SmartMatchmaking from './analysis/SmartMatchmaking';
 import AICoachChatPanel from './analysis/AICoachChatPanel';
 import ShareAnalyticsModal from './share/ShareAnalyticsModal';
 import { useIdentity } from '../contexts/IdentityContext';
@@ -171,6 +172,7 @@ const VideoAnalysisPage = ({ onLogout }) => {
               <BadmintonCourtHeatmap heatmapData={analysis.heatmapData} />
             </div>
 
+            <SmartMatchmaking />
             <KeyMomentsTimeline moments={analysis.keyMoments} />
           </div>
 

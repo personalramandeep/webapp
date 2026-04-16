@@ -16,7 +16,7 @@ app = FastAPI()
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
-        "https://28e121b3-f352-47bd-b927-cf08c206ad4e.preview.emergentagent.com",
+        "https://ai-coach-hub-36.preview.emergentagent.com",
         "http://localhost:3000",  # For local development
     ],
     allow_credentials=True,

@@ -10,6 +10,7 @@ import CoachMarketplace from './components/coach/CoachMarketplace';
 import CoachProfile from './pages/CoachProfile';
 import PerformanceReview from './components/review/PerformanceReview';
 import { IdentityProvider, useIdentity } from './contexts/IdentityContext';
+import { Toaster } from 'react-hot-toast';
 import './App.css';
 
 function RoleBasedDashboard() {
@@ -37,6 +38,7 @@ function App() {
     <Route path="/review/:videoId" element={<PerformanceReviewRoute />} />
     <Route path="/demo" element={<RoleBasedDashboard />} />
   </Routes>
+  <Toaster position="bottom-right" />
 </IdentityProvider>
 
   );
