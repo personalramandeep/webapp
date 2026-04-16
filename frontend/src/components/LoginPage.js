@@ -1,8 +1,30 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const LoginPage = () => {
   const navigate = useNavigate();
+  const videoRef = useRef(null);
+  
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    const handleTimeUpdate = () => {
+      // Start fade out 0.5 seconds before end
+      if (video.duration - video.currentTime < 0.5) {
+        video.style.opacity = '0.3';
+      } else if (video.currentTime < 0.5) {
+        // Fade back in at start
+        video.style.opacity = '1';
+      }
+    };
+
+    video.addEventListener('timeupdate', handleTimeUpdate);
+
+    return () => {
+      video.removeEventListener('timeupdate', handleTimeUpdate);
+    };
+  }, []);
   
   const handleEnterArena = () => {
     navigate('/dashboard');
@@ -101,11 +123,13 @@ const LoginPage = () => {
       {/* Right Side - Video Background */}
       <div className="hidden lg:block lg:w-1/2 relative overflow-hidden">
         <video
+          ref={videoRef}
           autoPlay
           loop
           muted
           playsInline
-          className="absolute inset-0 w-full h-full object-cover"
+          className="absolute inset-0 w-full h-full object-cover transition-opacity duration-500"
+          style={{ opacity: 1 }}
           data-testid="background-video"
         >
           <source 
