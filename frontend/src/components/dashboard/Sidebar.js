@@ -89,11 +89,12 @@ const Sidebar = ({ isCollapsed, setIsCollapsed }) => {
     <>
       {/* Fixed top bar with logo */}
       <div className="fixed left-0 top-0 h-16 w-full bg-kreeda-charcoal border-b border-white/10 flex items-center px-6 z-50">
-        <button onClick={() => handleNavClick('/dashboard')} className="flex items-center gap-2">
-          <div className="w-9 h-9 bg-kreeda-orange rounded-lg flex items-center justify-center font-bold text-white text-lg shadow-lg">
-            K
-          </div>
-          <span className="text-white font-bold text-xl tracking-tight">Kreeda</span>
+        <button onClick={() => handleNavClick('/dashboard')} className="flex items-center">
+          <img 
+            src="/assets/kreeda-logo.png" 
+            alt="Kreeda" 
+            className="h-8 w-auto"
+          />
         </button>
       </div>
 

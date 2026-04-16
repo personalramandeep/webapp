@@ -26,11 +26,7 @@ const Header = ({ onLogout }) => {
   const displayRole = role === 'coach' ? 'Coach' : 'Player';
 
   return (
-    <header className="sticky top-0 h-16 bg-kreeda-charcoal border-b border-gray-800 flex items-center justify-between px-6 z-30">
-      <div className="flex items-center gap-4">
-        <h2 className="text-white font-semibold text-lg" data-testid="header-title">Dashboard</h2>
-      </div>
-
+    <header className="sticky top-0 h-16 bg-kreeda-charcoal flex items-center justify-end px-6 z-30">
       <div className="flex items-center gap-4">
         <div className="flex bg-gray-800 rounded-lg p-1" data-testid="role-toggle">
           <button
