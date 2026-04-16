@@ -4,6 +4,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { useIdentity } from '../../contexts/IdentityContext';
 import NotificationsPanel from './NotificationsPanel';
 import { MOCK_NOTIFICATIONS } from '../../mocks/fixtures';
+import toast, { Toaster } from 'react-hot-toast';
 
 // Inline icon components (outline/solid variants) — avoids heroicons dep
 const Icon = ({ path, solid = false, className = 'w-5 h-5' }) => (
@@ -101,7 +102,23 @@ const Sidebar = ({ isCollapsed, setIsCollapsed, onLogout }) => {
   const isActive = (path) => location.pathname === path;
   const isParentActive = (item) => item.children?.some((c) => isActive(c.path));
 
-  const handleNavClick = (path) => navigate(path);
+  const comingSoonPages = ['/performance', '/training', '/challenges', '/profile', '/settings', '/help'];
+
+  const handleNavClick = (path) => {
+    if (comingSoonPages.includes(path)) {
+      toast('Coming soon - you will be notified', {
+        icon: '🚀',
+        style: {
+          background: '#10b981',
+          color: '#fff',
+          fontWeight: '500',
+        },
+        duration: 3000,
+      });
+    } else {
+      navigate(path);
+    }
+  };
 
   return (
     <>
@@ -374,6 +391,9 @@ const Sidebar = ({ isCollapsed, setIsCollapsed, onLogout }) => {
           </button>
         </div>
       </motion.aside>
+
+      {/* Toast Container */}
+      <Toaster position="top-center" />
     </>
   );
 };
