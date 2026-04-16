@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
+import Sidebar from '../components/dashboard/Sidebar';
+import Header from '../components/dashboard/Header';
 import CoachStatsCard from '../components/coach/CoachStatsCard';
 import CoachingReviewsCard from '../components/coach/CoachingReviewsCard';
 import { getCoachById, getCoachReviewsFor } from '../mocks/reviewStore';
@@ -25,27 +27,42 @@ const getInitials = (name) => {
   return parts.map((p) => p[0]).join('').toUpperCase().slice(0, 2);
 };
 
-const CoachProfile = () => {
+const CoachProfile = ({ onLogout }) => {
   const { coachId } = useParams();
   const navigate = useNavigate();
   const coach = getCoachById(coachId);
   const reviews = getCoachReviewsFor(coachId);
 
+  const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(true);
   const [isFavorited, setIsFavorited] = useState(false);
   const [isSubscribed, setIsSubscribed] = useState(false);
 
   if (!coach) {
     return (
-      <div className="min-h-screen bg-kreeda-gray text-white flex items-center justify-center p-6">
-        <div className="text-center">
-          <h2 className="text-2xl font-bold mb-2">Coach not found</h2>
-          <p className="text-white/60 text-sm mb-4">We couldn't find a coach with that id.</p>
-          <button
-            onClick={() => navigate('/marketplace')}
-            className="px-4 py-2 bg-kreeda-orange hover:bg-kreeda-orange/90 text-white rounded-xl text-sm font-medium"
-          >
-            Back to Marketplace
-          </button>
+      <div className="min-h-screen bg-[#0F0F0F]">
+        <Sidebar 
+          isCollapsed={isSidebarCollapsed} 
+          setIsCollapsed={setIsSidebarCollapsed}
+          onLogout={onLogout}
+        />
+        <Header onLogout={onLogout} />
+        
+        <div
+          className="transition-all duration-300 pt-16"
+          style={{ marginLeft: isSidebarCollapsed ? 72 : 280 }}
+        >
+          <div className="min-h-screen bg-kreeda-gray text-white flex items-center justify-center p-6">
+            <div className="text-center">
+              <h2 className="text-2xl font-bold mb-2">Coach not found</h2>
+              <p className="text-white/60 text-sm mb-4">We couldn't find a coach with that id.</p>
+              <button
+                onClick={() => navigate('/marketplace')}
+                className="px-4 py-2 bg-kreeda-orange hover:bg-kreeda-orange/90 text-white rounded-xl text-sm font-medium"
+              >
+                Back to Marketplace
+              </button>
+            </div>
+          </div>
         </div>
       </div>
     );
@@ -60,8 +77,20 @@ const CoachProfile = () => {
   };
 
   return (
-    <div className="min-h-screen bg-kreeda-gray text-white">
-      <div className="container mx-auto px-3 py-4 md:px-6 md:py-8 max-w-7xl">
+    <div className="min-h-screen bg-[#0F0F0F]">
+      <Sidebar 
+        isCollapsed={isSidebarCollapsed} 
+        setIsCollapsed={setIsSidebarCollapsed}
+        onLogout={onLogout}
+      />
+      <Header onLogout={onLogout} />
+
+      <div
+        className="transition-all duration-300 pt-16"
+        style={{ marginLeft: isSidebarCollapsed ? 72 : 280 }}
+      >
+        <div className="min-h-screen bg-kreeda-gray text-white">
+          <div className="container mx-auto px-3 py-4 md:px-6 md:py-8 max-w-7xl">
         {/* Back link */}
         <button
           onClick={() => navigate('/marketplace')}
@@ -301,6 +330,8 @@ const CoachProfile = () => {
           >
             <CoachingReviewsCard reviews={reviews} />
           </motion.div>
+        </div>
+          </div>
         </div>
       </div>
     </div>

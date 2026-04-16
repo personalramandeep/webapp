@@ -30,10 +30,10 @@ function App() {
     <Route path="/" element={<LoginPage />} />
     <Route path="/dashboard" element={<RoleBasedDashboard />} />
     <Route path="/analysis/:videoId" element={<VideoAnalysis onLogout={handleLogout} />} />
-    <Route path="/marketplace" element={<CoachMarketplace />} />
+    <Route path="/marketplace" element={<CoachMarketplace onLogout={handleLogout} />} />
     <Route path="/coach/dashboard" element={<RoleBasedDashboard />} />
     <Route path="/coach/reviews/:requestId" element={<CoachReviewsWorkroomRoute />} />
-    <Route path="/coach/:coachId" element={<CoachProfile />} />
+    <Route path="/coach/:coachId" element={<CoachProfile onLogout={handleLogout} />} />
     <Route path="/review/:videoId" element={<PerformanceReviewRoute />} />
     <Route path="/demo" element={<RoleBasedDashboard />} />
   </Routes>

@@ -1,6 +1,8 @@
 import React, { useState, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import Sidebar from '../dashboard/Sidebar';
+import Header from '../dashboard/Header';
 import CoachSearchFilters from './CoachSearchFilters';
 import AIRecommendationStrip from './AIRecommendationStrip';
 import CoachCard from './CoachCard';
@@ -13,8 +15,9 @@ const containerVariants = {
   visible: { transition: { staggerChildren: 0.08 } },
 };
 
-const CoachMarketplace = () => {
+const CoachMarketplace = ({ onLogout }) => {
   const navigate = useNavigate();
+  const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(true);
   const [searchQuery, setSearchQuery] = useState('');
   const [sortBy, setSortBy] = useState('recommended');
   const [activeQuickFilters, setActiveQuickFilters] = useState([]);
@@ -61,8 +64,19 @@ const CoachMarketplace = () => {
   }, [searchQuery, activeQuickFilters, favorites]);
 
   return (
-    <div className="min-h-screen bg-kreeda-gray text-white">
-      <div className="container mx-auto px-3 py-4 md:px-6 md:py-8 max-w-7xl">
+    <div className="min-h-screen bg-[#0F0F0F]">
+      <Sidebar 
+        isCollapsed={isSidebarCollapsed} 
+        setIsCollapsed={setIsSidebarCollapsed}
+        onLogout={onLogout}
+      />
+      <Header onLogout={onLogout} />
+
+      <div
+        className="transition-all duration-300 pt-16"
+        style={{ marginLeft: isSidebarCollapsed ? 72 : 280 }}
+      >
+        <div className="container mx-auto px-3 py-4 md:px-6 md:py-8 max-w-7xl">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -145,6 +159,7 @@ const CoachMarketplace = () => {
             ))}
           </motion.div>
         )}
+        </div>
       </div>
     </div>
   );
