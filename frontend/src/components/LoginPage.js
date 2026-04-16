@@ -1,8 +1,49 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const LoginPage = () => {
   const navigate = useNavigate();
+  const videoRef = useRef(null);
+  
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    let isReversing = false;
+
+    const handleVideoEnd = () => {
+      if (!isReversing) {
+        // Video finished playing forward, now play in reverse
+        isReversing = true;
+        video.playbackRate = -1;
+        video.play();
+      } else {
+        // Video finished playing in reverse, play forward again
+        isReversing = false;
+        video.currentTime = 0;
+        video.playbackRate = 1;
+        video.play();
+      }
+    };
+
+    const handleTimeUpdate = () => {
+      // When playing in reverse and reaches the beginning
+      if (isReversing && video.currentTime <= 0) {
+        isReversing = false;
+        video.currentTime = 0;
+        video.playbackRate = 1;
+        video.play();
+      }
+    };
+
+    video.addEventListener('ended', handleVideoEnd);
+    video.addEventListener('timeupdate', handleTimeUpdate);
+
+    return () => {
+      video.removeEventListener('ended', handleVideoEnd);
+      video.removeEventListener('timeupdate', handleTimeUpdate);
+    };
+  }, []);
   
   const handleEnterArena = () => {
     navigate('/dashboard');
@@ -101,8 +142,8 @@ const LoginPage = () => {
       {/* Right Side - Video Background */}
       <div className="hidden lg:block lg:w-1/2 relative overflow-hidden">
         <video
+          ref={videoRef}
           autoPlay
-          loop
           muted
           playsInline
           className="absolute inset-0 w-full h-full object-cover"
