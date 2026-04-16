@@ -42,6 +42,19 @@ Kreeda analyzes badminton videos to deliver data-driven coaching insights. Curre
   - Close via X button or overlay click
 - **Testing**: 100% pass rate (iteration 3)
 
+## Performance Review Page (Redesigned Feb 2026)
+- **Location**: `/review/:videoId`
+- **Layout**: Two-column (2/3 video + feedback, 1/3 coach info + drills + review form)
+- **Features**:
+  - Video player with colored timeline markers (Coach=red, AI=blue, Highlight=green)
+  - Filter tabs: Coach Annotations, AI Insights, Key Moments
+  - Timeline Feedback cards with timestamps (click to seek video)
+  - Coach info card (Arjun Mehta, 4.8 rating)
+  - Suggested Drills (3 YouTube drills with modal playback via DrillVideoModal)
+  - Review your coach form (star rating, topic tags, textarea, submit with toast)
+  - Back to My Sessions link
+- **Testing**: 100% pass rate (32/32 test IDs verified, iteration 4)
+
 ## Backlog
 - **P1**: Cleanup unused Auth components (`AuthCallback.js`) and backend auth endpoints
 - **P2**: Implement real backend endpoints and MongoDB storage
