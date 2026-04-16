@@ -10,38 +10,37 @@ const LoginPage = () => {
     if (!video) return;
 
     let isReversing = false;
+    let animationFrame = null;
 
-    const handleVideoEnd = () => {
-      if (!isReversing) {
-        // Video finished playing forward, now play in reverse
-        isReversing = true;
-        video.playbackRate = -1;
+    const reverseVideo = () => {
+      if (!isReversing) return;
+      
+      const step = 0.05; // Adjust for smoothness
+      video.currentTime = Math.max(0, video.currentTime - step);
+      
+      if (video.currentTime <= 0) {
+        // Reached beginning, play forward again
+        isReversing = false;
         video.play();
       } else {
-        // Video finished playing in reverse, play forward again
-        isReversing = false;
-        video.currentTime = 0;
-        video.playbackRate = 1;
-        video.play();
+        animationFrame = requestAnimationFrame(reverseVideo);
       }
     };
 
-    const handleTimeUpdate = () => {
-      // When playing in reverse and reaches the beginning
-      if (isReversing && video.currentTime <= 0) {
-        isReversing = false;
-        video.currentTime = 0;
-        video.playbackRate = 1;
-        video.play();
-      }
+    const handleVideoEnd = () => {
+      // Video finished playing forward, now play in reverse
+      isReversing = true;
+      video.pause();
+      reverseVideo();
     };
 
     video.addEventListener('ended', handleVideoEnd);
-    video.addEventListener('timeupdate', handleTimeUpdate);
 
     return () => {
       video.removeEventListener('ended', handleVideoEnd);
-      video.removeEventListener('timeupdate', handleTimeUpdate);
+      if (animationFrame) {
+        cancelAnimationFrame(animationFrame);
+      }
     };
   }, []);
   
