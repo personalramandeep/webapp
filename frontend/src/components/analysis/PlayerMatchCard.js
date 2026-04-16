@@ -72,7 +72,7 @@ const PlayerMatchCard = ({ player, index }) => {
           <img
             src={player.picture}
             alt={player.name}
-            className="w-11 h-11 rounded-full border-2 border-white/15 bg-white/10"
+            className="w-11 h-11 rounded-full border-2 border-white/15 bg-white/10 object-cover"
           />
           <div className="min-w-0">
             <p className="text-sm font-semibold text-white truncate">{player.name}</p>

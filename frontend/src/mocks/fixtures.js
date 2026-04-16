@@ -175,7 +175,7 @@ export const MATCHMAKING_COACHES = [
   {
     id: 'mc-1',
     name: 'Ananya Sharma',
-    picture: 'https://api.dicebear.com/7.x/avataaars/svg?seed=ananya',
+    picture: '/assets/match-player-2.png',
     rating: 4.9,
     totalReviews: 127,
     hourlyRate: 249,
@@ -190,7 +190,7 @@ export const MATCHMAKING_COACHES = [
   {
     id: 'mc-2',
     name: 'Ravi Kapoor',
-    picture: 'https://api.dicebear.com/7.x/avataaars/svg?seed=raviK',
+    picture: '/assets/match-player-1.png',
     rating: 4.7,
     totalReviews: 84,
     hourlyRate: 199,
@@ -205,7 +205,7 @@ export const MATCHMAKING_COACHES = [
   {
     id: 'mc-3',
     name: 'Meera Iyer',
-    picture: 'https://api.dicebear.com/7.x/avataaars/svg?seed=meera',
+    picture: '/assets/match-player-3.png',
     rating: 4.8,
     totalReviews: 63,
     hourlyRate: 179,
@@ -220,7 +220,7 @@ export const MATCHMAKING_COACHES = [
   {
     id: 'mc-4',
     name: 'Prakash Reddy',
-    picture: 'https://api.dicebear.com/7.x/avataaars/svg?seed=prakashR',
+    picture: '/assets/match-player-4.png',
     rating: 4.9,
     totalReviews: 210,
     hourlyRate: 349,
@@ -235,7 +235,7 @@ export const MATCHMAKING_COACHES = [
   {
     id: 'mc-5',
     name: 'Sanya Bhatia',
-    picture: 'https://api.dicebear.com/7.x/avataaars/svg?seed=sanyaB',
+    picture: '/assets/match-player-2.png',
     rating: 4.6,
     totalReviews: 45,
     hourlyRate: 159,
@@ -250,7 +250,7 @@ export const MATCHMAKING_COACHES = [
   {
     id: 'mc-6',
     name: 'Dhruv Patel',
-    picture: 'https://api.dicebear.com/7.x/avataaars/svg?seed=dhruvP',
+    picture: '/assets/match-player-1.png',
     rating: 4.8,
     totalReviews: 152,
     hourlyRate: 279,
@@ -268,7 +268,7 @@ export const MATCHMAKING_PLAYERS = [
   {
     id: 'mp-1',
     name: 'Arjun Menon',
-    picture: 'https://api.dicebear.com/7.x/avataaars/svg?seed=arjun',
+    picture: '/assets/match-player-1.png',
     city: 'Bangalore',
     playStyle: 'Aggressive Attacker',
     level: 'Advanced',
@@ -281,7 +281,7 @@ export const MATCHMAKING_PLAYERS = [
   {
     id: 'mp-2',
     name: 'Priya Nair',
-    picture: 'https://api.dicebear.com/7.x/avataaars/svg?seed=priya',
+    picture: '/assets/match-player-2.png',
     city: 'Chennai',
     playStyle: 'Defensive Wall',
     level: 'Intermediate',
@@ -294,7 +294,7 @@ export const MATCHMAKING_PLAYERS = [
   {
     id: 'mp-3',
     name: 'Karan Malhotra',
-    picture: 'https://api.dicebear.com/7.x/avataaars/svg?seed=karan',
+    picture: '/assets/match-player-4.png',
     city: 'Chandigarh',
     playStyle: 'All-Rounder',
     level: 'Advanced',
@@ -307,7 +307,7 @@ export const MATCHMAKING_PLAYERS = [
   {
     id: 'mp-4',
     name: 'Divya Reddy',
-    picture: 'https://api.dicebear.com/7.x/avataaars/svg?seed=divya',
+    picture: '/assets/match-player-3.png',
     city: 'Jaipur',
     playStyle: 'Net Specialist',
     level: 'Advanced',
@@ -320,7 +320,7 @@ export const MATCHMAKING_PLAYERS = [
   {
     id: 'mp-5',
     name: 'Vikram Rao',
-    picture: 'https://api.dicebear.com/7.x/avataaars/svg?seed=vikram',
+    picture: '/assets/match-player-1.png',
     city: 'Hyderabad',
     playStyle: 'Power Smasher',
     level: 'Intermediate',
@@ -333,7 +333,7 @@ export const MATCHMAKING_PLAYERS = [
   {
     id: 'mp-6',
     name: 'Nisha Patel',
-    picture: 'https://api.dicebear.com/7.x/avataaars/svg?seed=nisha',
+    picture: '/assets/match-player-2.png',
     city: 'Ahmedabad',
     playStyle: 'Strategic Thinker',
     level: 'Advanced',

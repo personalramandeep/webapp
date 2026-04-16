@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import CoachMatchCard from './CoachMatchCard';
 import PlayerMatchCard from './PlayerMatchCard';
@@ -14,29 +14,37 @@ const LOADING_TEXTS = [
 
 const SmartMatchmaking = () => {
   const [activeTab, setActiveTab] = useState('coach');
-  const [isLoading, setIsLoading] = useState(true);
+  const [matchState, setMatchState] = useState('idle'); // idle | loading | done
   const [loadingTextIndex, setLoadingTextIndex] = useState(0);
   const scrollRef = useRef(null);
 
-  // Simulated loading on tab switch
-  useEffect(() => {
-    setIsLoading(true);
+  const startMatching = useCallback(() => {
+    setMatchState('loading');
     setLoadingTextIndex(0);
+  }, []);
+
+  // Loading timer
+  useEffect(() => {
+    if (matchState !== 'loading') return;
     const textInterval = setInterval(() => {
       setLoadingTextIndex((prev) => (prev + 1) % LOADING_TEXTS.length);
     }, 600);
     const timer = setTimeout(() => {
       clearInterval(textInterval);
-      setIsLoading(false);
+      setMatchState('done');
     }, 2500);
     return () => {
       clearTimeout(timer);
       clearInterval(textInterval);
     };
-  }, [activeTab]);
+  }, [matchState]);
 
-  const coaches = MATCHMAKING_COACHES;
-  const players = MATCHMAKING_PLAYERS;
+  // Reset to idle when switching tabs
+  const handleTabSwitch = (tab) => {
+    if (tab === activeTab) return;
+    setActiveTab(tab);
+    setMatchState('idle');
+  };
 
   return (
     <motion.div
@@ -63,7 +71,7 @@ const SmartMatchmaking = () => {
         {/* Toggle tabs */}
         <div className="flex bg-white/5 border border-white/10 rounded-lg p-0.5" data-testid="matchmaking-tabs">
           <button
-            onClick={() => setActiveTab('coach')}
+            onClick={() => handleTabSwitch('coach')}
             className={`px-3 py-1.5 text-xs font-medium rounded-md transition-all ${
               activeTab === 'coach'
                 ? 'bg-kreeda-orange text-white shadow-sm'
@@ -74,7 +82,7 @@ const SmartMatchmaking = () => {
             Find a Coach
           </button>
           <button
-            onClick={() => setActiveTab('player')}
+            onClick={() => handleTabSwitch('player')}
             className={`px-3 py-1.5 text-xs font-medium rounded-md transition-all ${
               activeTab === 'player'
                 ? 'bg-kreeda-orange text-white shadow-sm'
@@ -89,7 +97,48 @@ const SmartMatchmaking = () => {
 
       {/* Content */}
       <AnimatePresence mode="wait">
-        {isLoading ? (
+        {matchState === 'idle' && (
+          <motion.div
+            key="idle"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="flex flex-col items-center justify-center py-10 gap-4"
+            data-testid="matchmaking-idle"
+          >
+            <div className="w-16 h-16 rounded-full bg-kreeda-orange/10 border border-kreeda-orange/20 flex items-center justify-center">
+              <svg className="w-7 h-7 text-kreeda-orange" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                {activeTab === 'coach' ? (
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0z" />
+                ) : (
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 018.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0111.964-3.07M12 6.375a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zm8.25 2.25a2.625 2.625 0 11-5.25 0 2.625 2.625 0 015.25 0z" />
+                )}
+              </svg>
+            </div>
+            <div className="text-center">
+              <p className="text-sm text-white/70 mb-1">
+                {activeTab === 'coach'
+                  ? 'Find coaches tailored to your weaknesses'
+                  : 'Discover players that match your skill level'}
+              </p>
+              <p className="text-[10px] text-white/35">
+                Our AI analyzes your video performance to find the best matches
+              </p>
+            </div>
+            <button
+              onClick={startMatching}
+              className="mt-1 px-5 py-2.5 bg-kreeda-orange text-white text-xs font-semibold rounded-lg hover:bg-kreeda-orange/90 transition-all active:scale-95 flex items-center gap-2"
+              data-testid="start-matching-btn"
+            >
+              <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+              </svg>
+              {activeTab === 'coach' ? 'Find My Ideal Coach' : 'Find Matching Players'}
+            </button>
+          </motion.div>
+        )}
+
+        {matchState === 'loading' && (
           <motion.div
             key="loader"
             initial={{ opacity: 0 }}
@@ -98,7 +147,6 @@ const SmartMatchmaking = () => {
             className="flex flex-col items-center justify-center py-12 gap-4"
             data-testid="matchmaking-loading"
           >
-            {/* Spinner */}
             <div className="relative w-12 h-12">
               <div className="absolute inset-0 rounded-full border-2 border-white/10" />
               <div className="absolute inset-0 rounded-full border-2 border-transparent border-t-kreeda-orange animate-spin" />
@@ -117,15 +165,16 @@ const SmartMatchmaking = () => {
               </motion.p>
             </AnimatePresence>
           </motion.div>
-        ) : (
+        )}
+
+        {matchState === 'done' && (
           <motion.div
-            key={activeTab}
+            key={`results-${activeTab}`}
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: -20 }}
             transition={{ duration: 0.25 }}
           >
-            {/* Scroll container */}
             <div
               ref={scrollRef}
               className="flex gap-3 overflow-x-auto pb-2 scrollbar-thin"
@@ -133,18 +182,17 @@ const SmartMatchmaking = () => {
               data-testid="matchmaking-scroll-container"
             >
               {activeTab === 'coach'
-                ? coaches.map((coach, i) => (
+                ? MATCHMAKING_COACHES.map((coach, i) => (
                     <CoachMatchCard key={coach.id} coach={coach} index={i} />
                   ))
-                : players.map((player, i) => (
+                : MATCHMAKING_PLAYERS.map((player, i) => (
                     <PlayerMatchCard key={player.id} player={player} index={i} />
                   ))}
             </div>
 
-            {/* Summary footer */}
             <div className="flex items-center justify-between mt-3 pt-3 border-t border-white/5">
               <p className="text-[10px] text-white/30">
-                Showing {activeTab === 'coach' ? '3' : '3'} of {activeTab === 'coach' ? '6' : '6'} matches &middot; Upgrade to see all
+                Showing 3 of 6 matches &middot; Upgrade to see all
               </p>
               <button
                 className="flex items-center gap-1 text-[10px] text-kreeda-orange hover:text-kreeda-orange/80 transition-colors font-medium"
