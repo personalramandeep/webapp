@@ -118,26 +118,6 @@ const Sidebar = ({ isCollapsed, setIsCollapsed, onLogout }) => {
 
         {/* Controls on the right */}
         <div className="flex items-center gap-4">
-          {/* Player/Coach Toggle */}
-          <div className="flex bg-gray-800 rounded-lg p-1" data-testid="role-toggle">
-            <button
-              onClick={() => handleRoleChange('Player')}
-              className={`px-4 py-2 rounded-md text-sm font-medium transition-all ${
-                displayRole === 'Player' ? 'bg-kreeda-orange text-white' : 'text-gray-400 hover:text-white'
-              }`}
-            >
-              🏸 Player
-            </button>
-            <button
-              onClick={() => handleRoleChange('Coach')}
-              className={`px-4 py-2 rounded-md text-sm font-medium transition-all ${
-                displayRole === 'Coach' ? 'bg-kreeda-orange text-white' : 'text-gray-400 hover:text-white'
-              }`}
-            >
-              🎓 Coach
-            </button>
-          </div>
-
           {/* Notifications */}
           <div className="relative">
             <button
