@@ -1,19 +1,18 @@
 import Anthropic from '@anthropic-ai/sdk';
 
-// Hardcoded Emergent LLM key as fallback
-const apiKey = process.env.REACT_APP_EMERGENT_LLM_KEY || 'sk-emergent-9837dC6C3301426DcC';
+// Emergent LLM key - works as universal key for Anthropic
+const apiKey = 'sk-emergent-9837dC6C3301426DcC';
 
 let client = null;
-if (apiKey && apiKey !== 'sk-ant-YOUR-KEY-HERE') {
-  try {
-    client = new Anthropic({ 
-      apiKey, 
-      dangerouslyAllowBrowser: true,
-      baseURL: 'https://llm.emrgnt.workers.dev/anthropic'
-    });
-  } catch (e) {
-    console.error('Failed to initialize Anthropic client:', e);
-  }
+try {
+  client = new Anthropic({ 
+    apiKey,
+    dangerouslyAllowBrowser: true
+    // Using default Anthropic baseURL - Emergent key works directly
+  });
+  console.log('✓ Anthropic client initialized with Emergent LLM key');
+} catch (e) {
+  console.error('Failed to initialize Anthropic client:', e);
 }
 
 export function buildSystemPrompt({ playerName, score, grade, skills, analysis }) {
@@ -106,7 +105,7 @@ export async function* streamReply({ context, messages }) {
     throw new Error('Emergent LLM API key missing');
   }
   const stream = client.messages.stream({
-    model: 'claude-sonnet-4-20250514',
+    model: 'claude-4-sonnet-20250514',
     max_tokens: 400,
     system: buildSystemPrompt(context),
     messages: messages.map((m) => ({ role: m.role, content: m.content })),

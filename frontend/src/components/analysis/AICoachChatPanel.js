@@ -16,7 +16,11 @@ const AICoachChatPanel = ({ isOpen, onClose, videoContext }) => {
     {
       id: 'welcome',
       role: 'assistant',
-      content: `Hi ${identity.name.split(' ')[0]}! I've reviewed your analysis for "${videoContext?.title || 'your match'}". Your score was ${videoContext?.score ?? 72}/100 (grade ${videoContext?.grade ?? 'B'}). Your strongest skill was ${videoContext?.strongestSkill ?? 'endurance'}, and your focus area should be ${videoContext?.weakestSkill ?? 'defense'}. Ask me anything.`,
+      content: `Hi ${identity.name.split(' ')[0]}! I've reviewed your analysis for "${videoContext?.title || 'your match'}". Your score was ${videoContext?.score ?? 72}/100 (grade ${videoContext?.grade ?? 'B'}). Your strongest skill was ${
+        videoContext?.skills ? Object.entries(videoContext.skills).sort((a, b) => b[1] - a[1])[0][0] : 'endurance'
+      }, and your focus area should be ${
+        videoContext?.skills ? Object.entries(videoContext.skills).sort((a, b) => a[1] - b[1])[0][0] : 'defense'
+      }. Ask me anything.`,
       createdAt: Date.now(),
     },
   ]);
@@ -110,7 +114,7 @@ const AICoachChatPanel = ({ isOpen, onClose, videoContext }) => {
                         : 'bg-[#2a2a2a] text-gray-100 rounded-bl-sm'
                     }`}
                   >
-                    <p className="whitespace-pre-wrap">{m.content || (m.role === 'assistant' && isStreaming ? '...' : '')}</p>
+                    <p className="whitespace-pre-wrap">{m.content}</p>
                     <p className={`text-[10px] mt-1 ${m.role === 'user' ? 'text-white/70' : 'text-gray-500'}`}>
                       {formatTime(m.createdAt)}
                     </p>
