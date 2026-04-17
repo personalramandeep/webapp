@@ -103,11 +103,11 @@ const CoachDashboard = ({ onLogout }) => {
           <div className="absolute top-20 -left-20 w-72 h-72 bg-kreeda-orange/5 rounded-full blur-3xl pointer-events-none" />
           <div className="absolute bottom-40 -right-20 w-96 h-96 bg-blue-500/5 rounded-full blur-3xl pointer-events-none" />
 
-          {/* Announcement banner */}
+          {/* Announcement banner
           <div className="bg-green-900/30 border border-green-800/50 rounded-lg px-4 py-2.5 mb-5 flex items-center gap-2 text-xs">
             <span className="text-green-400">🎉 Welcome to your Kreeda dashboard!</span>
             <span className="text-gray-300">We're launching all features on <span className="text-kreeda-orange font-medium">April 16, 2026</span>. Until then, everything you see is sample data — feel free to explore!</span>
-          </div>
+          </div> */}
 
           <motion.div variants={containerVariants} initial="hidden" animate="visible">
             {/* Welcome + rating */}

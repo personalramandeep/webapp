@@ -215,13 +215,19 @@ const CoachReviewsWorkroom = ({ onLogout }) => {
   }, [video]);
 
   // Sync video time
-  useEffect(() => {
+    useEffect(() => {
     const el = videoRef.current;
     if (!el) return;
-    const onTime = () => setCurrentTime(el.currentTime);
-    el.addEventListener('timeupdate', onTime);
-    return () => el.removeEventListener('timeupdate', onTime);
+    const onPause = () => setCurrentTime(el.currentTime);
+    const onTime = () => { if (!el.paused) return; setCurrentTime(el.currentTime); };
+    el.addEventListener('pause', onPause);
+    el.addEventListener('seeked', onPause);
+    return () => {
+      el.removeEventListener('pause', onPause);
+      el.removeEventListener('seeked', onPause);
+    };
   }, []);
+
 
   // Canvas drawing
   useEffect(() => {
@@ -299,7 +305,6 @@ const CoachReviewsWorkroom = ({ onLogout }) => {
   };
 
   const finishReview = () => {
-    if (request) completeCoachRequest(request.id);
     navigate('/coach/dashboard');
   };
 
@@ -352,20 +357,10 @@ const CoachReviewsWorkroom = ({ onLogout }) => {
         <main className="p-6 max-w-[1400px] mx-auto">
 
           {/* Page header */}
-          <div className="flex items-center justify-between mb-4">
-            <div>
-              <h1 className="text-white text-2xl font-bold">Review Requests</h1>
-              <p className="text-white/50 text-sm">Review player videos and provide feedback</p>
-            </div>
-            <button
-              onClick={finishReview}
-              className="flex items-center gap-2 px-4 py-2 bg-kreeda-orange text-white text-sm font-medium rounded-lg hover:bg-kreeda-orange/90 transition-colors"
-            >
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={2.5} viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
-              </svg>
-              Approve &amp; Send
-            </button>
+          {/* Page header */}
+          <div className="mb-4">
+            <h1 className="text-white text-2xl font-bold">Review Requests</h1>
+            <p className="text-white/50 text-sm">Review player videos and provide feedback</p>
           </div>
 
           {/* Request tab strip */}

@@ -18,7 +18,7 @@ const DEFAULT_STATE = {
   activeIdentity: 'player',
   uploadedVideos: MOCK_VIDEOS,
   coachRequests: SEED_COACH_REQUESTS,
-  coachFeedback: SEED_COACH_FEEDBACK,
+  coachFeedback: {},
   suggestedDrills: SEED_SUGGESTED_DRILLS,
   aiChatByVideo: {},
 };
