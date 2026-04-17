@@ -202,6 +202,7 @@ const CoachReviewsWorkroom = ({ onLogout }) => {
   const videoRef = useRef(null);
   const canvasRef = useRef(null);
   const [currentTime, setCurrentTime] = useState(0);
+  const [capturedTime, setCapturedTime] = useState(null);
   const [feedbackText, setFeedbackText] = useState('');
   const [activeTags, setActiveTags] = useState(['General']);
   const [isDrawing, setIsDrawing] = useState(false);
@@ -214,19 +215,28 @@ const CoachReviewsWorkroom = ({ onLogout }) => {
     if (video) setLocalFeedback(getCoachFeedbackFor(video.id));
   }, [video]);
 
-  // Sync video time
-    useEffect(() => {
+
+   useEffect(() => {
     const el = videoRef.current;
     if (!el) return;
-    const onPause = () => setCurrentTime(el.currentTime);
-    const onTime = () => { if (!el.paused) return; setCurrentTime(el.currentTime); };
+    const onPause = () => {
+      setCapturedTime(el.currentTime);
+      setCurrentTime(el.currentTime);
+    };
+    const onSeeked = () => {
+      if (el.paused) {
+        setCapturedTime(el.currentTime);
+        setCurrentTime(el.currentTime);
+      }
+    };
     el.addEventListener('pause', onPause);
-    el.addEventListener('seeked', onPause);
+    el.addEventListener('seeked', onSeeked);
     return () => {
       el.removeEventListener('pause', onPause);
-      el.removeEventListener('seeked', onPause);
+      el.removeEventListener('seeked', onSeeked);
     };
   }, []);
+
 
 
   // Canvas drawing
@@ -279,7 +289,7 @@ const CoachReviewsWorkroom = ({ onLogout }) => {
     const annotationDataUrl = isDrawing && canvasRef.current ? canvasRef.current.toDataURL('image/png') : null;
     addCoachFeedback({
       videoId: video.id,
-      timestamp: currentTime,
+      timestamp: capturedTime ?? 0,
       text: feedbackText.trim(),
       tags: activeTags,
       drills: selectedDrills,
@@ -425,9 +435,9 @@ const CoachReviewsWorkroom = ({ onLogout }) => {
                   placeholder="Write feedback about this moment..."
                   className="flex-1 bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-sm text-white placeholder-white/30 focus:outline-none focus:border-kreeda-orange/50"
                 />
-                <div className="bg-white/5 border border-white/10 px-3 py-2 rounded-lg text-xs text-white/50 font-mono whitespace-nowrap">
-                  @{formatTs(currentTime)}
-                </div>
+                <div className={`px-3 py-2 rounded-lg text-xs font-mono whitespace-nowrap border ${capturedTime != null ? 'bg-kreeda-orange/10 border-kreeda-orange/40 text-kreeda-orange' : 'bg-white/5 border-white/10 text-white/30'}`}>
+  @{formatTs(capturedTime ?? 0)}
+</div>
                 <button
                   onClick={addNote}
                   disabled={!feedbackText.trim()}
@@ -554,6 +564,18 @@ const CoachReviewsWorkroom = ({ onLogout }) => {
               </div>
             </div>
           )}
+           {/* Bottom CTA */}
+          <div className="mt-6">
+            <button
+              onClick={finishReview}
+              className="flex items-center justify-center gap-2 px-8 py-3 bg-kreeda-orange text-white text-sm font-semibold rounded-xl hover:bg-kreeda-orange/90 transition-colors w-full"
+            >
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={2.5} viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+              </svg>
+              Approve &amp; Send
+            </button>
+          </div>
         </main>
       </div>
     </div>
