@@ -104,8 +104,8 @@ export const MOCK_COACHES = [
 
 
 export const SEED_COACH_REQUESTS = [
-  { id: 'req-seed-1', videoId: 'v-seed-1', coachId: 'coach-prab', status: 'in_review', note: '', createdAt: new Date(Date.now() - 86400000).toISOString() },
-  { id: 'req-seed-2', videoId: 'v-seed-1', coachId: 'coach-sumit', status: 'in_review', note: '', createdAt: new Date(Date.now() - 86400000).toISOString() },
+  { id: 'req-seed-1', videoId: 'v-seed-1', coachId: 'coach-prab', playerName: 'Ramandeep Singh', status: 'in_review', note: '', createdAt: new Date(Date.now() - 86400000).toISOString() },
+  { id: 'req-seed-2', videoId: 'v-seed-1', coachId: 'coach-sumit', playerName: 'Ramandeep Singh', status: 'in_review', note: '', createdAt: new Date(Date.now() - 2 * 86400000).toISOString() },
 ];
 
 export const SUGGESTED_AI_PROMPTS = [
@@ -342,5 +342,24 @@ export const MATCHMAKING_PLAYERS = [
     eloRating: 1754,
     recentForm: 'L W W W L',
     locked: true,
+  },
+];
+
+export const MOCK_COACH_DASHBOARD_FEEDBACK = [
+  {
+    id: 'fb1',
+    playerName: 'Sumit Singh',
+    playerUsername: 'itssumitsin0190',
+    reviewText: 'nice',
+    rating: 3,
+    playerProfilePicUrl: 'https://api.dicebear.com/7.x/avataaars/svg?seed=sumit',
+  },
+  {
+    id: 'fb2',
+    playerName: 'Ramandeep Singh',
+    playerUsername: 'ramansingh',
+    reviewText: 'Great coaching session, very helpful!',
+    rating: 4,
+    playerProfilePicUrl: 'https://api.dicebear.com/7.x/avataaars/svg?seed=ramansingh',
   },
 ];
