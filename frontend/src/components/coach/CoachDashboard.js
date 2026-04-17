@@ -94,11 +94,11 @@ const CoachDashboard = ({ onLogout }) => {
   ];
 
   return (
-    <div className="min-h-screen bg-[#0F0F0F]">
+    <div className="min-h-screen bg-kreeda-charcoal">
       <Sidebar isCollapsed={isSidebarCollapsed} setIsCollapsed={setIsSidebarCollapsed} />
-      <div className={`transition-all duration-300 ${isSidebarCollapsed ? 'ml-16' : 'ml-64'}`}>
+      <div className="transition-all duration-300" style={{ marginLeft: isSidebarCollapsed ? 72 : 280 }}>
         <Header user={identity} onLogout={onLogout} />
-        <main className="p-6 max-w-[1600px] mx-auto relative">
+        <main className="p-6 pt-20 max-w-[1600px] mx-auto relative">
           {/* Background blur orbs */}
           <div className="absolute top-20 -left-20 w-72 h-72 bg-kreeda-orange/5 rounded-full blur-3xl pointer-events-none" />
           <div className="absolute bottom-40 -right-20 w-96 h-96 bg-blue-500/5 rounded-full blur-3xl pointer-events-none" />
@@ -117,7 +117,7 @@ const CoachDashboard = ({ onLogout }) => {
                 {rating > 0 && <span className="text-white/50 text-sm">{rating.toFixed(1)}</span>}
               </div>
               <h1 className="text-white text-2xl md:text-4xl font-bold mb-1" data-testid="coach-welcome">
-                Welcome back, Coach {identity.name.split(' ')[0]}!
+                Welcome back, {identity.name}!
               </h1>
               <p className="text-white/60 text-sm md:text-base">Here's what's happening with your coaching today</p>
             </motion.div>
