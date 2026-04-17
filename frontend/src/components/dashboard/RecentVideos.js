@@ -19,7 +19,7 @@ const VideoTile = ({ video, index, onClick }) => {
       className="relative rounded-3xl overflow-hidden group cursor-pointer hover:shadow-2xl transition-shadow"
       onClick={onClick}
     >
-      <div className="relative w-full aspect-[4/3] sm:aspect-[4/5] overflow-hidden bg-[#1B3B36]/40">
+      <div className="relative w-full aspect-video overflow-hidden bg-[#1B3B36]/40">
         <img
           src={video.thumbnail}
           alt={video.title}
